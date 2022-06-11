@@ -239,7 +239,7 @@ class Icarus_Module_Single
 <?php  
 Icarus_Module::show('Donate');
 
-if ($isPost):
+if ($this->_post->is('post')):
     $prevPost = $this->getPrev();
     $nextPost = $this->getNext();
     if ($prevPost || $nextPost): 
