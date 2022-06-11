@@ -101,13 +101,14 @@ class Icarus_Module_Single
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <?php $result = array();
+                    <span><?php $result = array();
                     foreach ($this->_post->tags as $tag) {
                         $result[] ='<a class="has-link-grey" href="' . $tag['permalink'] . '">'
                         . $tag['name'] . '</a>';
                     }
                     echo implode(',&nbsp;', $result);
                     ?>
+                    </span>
                 </div>
             </div>
         </div>
