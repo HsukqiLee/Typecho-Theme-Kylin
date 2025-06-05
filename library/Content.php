@@ -1,6 +1,6 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class Icarus_Content
+class WDCX_Content
 {
     private static $fieldsInfoOutputed = FALSE;
 
@@ -140,12 +140,12 @@ class Icarus_Content
     {
         $content = $post->content;
         $content = self::processAllShortcodes($content);
-        if (Icarus_Module::enabled('Toc'))
+        if (WDCX_Module::enabled('Toc'))
         {
-            Icarus_Module::load('Toc');
-            $content = Icarus_Module_Toc::generate($content);
+            WDCX_Module::load('Toc');
+            $content = WDCX_Module_Toc::generate($content);
         }
-        if (Icarus_Config::tryGet('post_content_extend', $extendTpl) && $post->is('post'))
+        if (WDCX_Config::tryGet('post_content_extend', $extendTpl) && $post->is('post'))
         {
             $content .= str_replace(
                 array(
@@ -158,7 +158,7 @@ class Icarus_Content
                     $post->title,
                     $post->author->screenName,
                     $post->permalink,
-                    $post->date->format(Icarus_Util::$options->postDateFormat),
+                    $post->date->format(WDCX_Util::$options->postDateFormat),
                 ),
                 $extendTpl
             );
@@ -174,11 +174,11 @@ class Icarus_Content
         }
 
         // user config        
-        $truncateLength = intval(Icarus_Config::get('post_excerpt_length', 100));
+        $truncateLength = intval(WDCX_Config::get('post_excerpt_length', 100));
 
-        $preserveTags = !!Icarus_Config::get('post_excerpt_preserve_tags', FALSE);
+        $preserveTags = !!WDCX_Config::get('post_excerpt_preserve_tags', FALSE);
 
-        if (!Icarus_Util::isEmpty($post->fields->custom_excerpt)) {
+        if (!WDCX_Util::isEmpty($post->fields->custom_excerpt)) {
             // custom excerpt support
 
             $excerpt = $post->markdown($post->fields->custom_excerpt);
@@ -202,7 +202,7 @@ class Icarus_Content
             }
 
             // fixHtml func patched
-            $excerpt = Icarus_Util::fixHtml(
+            $excerpt = WDCX_Util::fixHtml(
                 $post->pluginHandle('Widget_Abstract_Contents')
                      ->excerptEx($excerpt, $post)
                 );
@@ -226,35 +226,34 @@ class Icarus_Content
 
     public static function hasThumbnail($post)
     {
-        return !Icarus_Util::isEmpty($post->fields->thumbnail);
+        return !WDCX_Util::isEmpty($post->fields->thumbnail);
     }
 
     public static function getThumbnail($post)
     {
         return self::hasThumbnail($post)
             ? $post->fields->thumbnail 
-            : Icarus_Assets::getUrlForAssets('img/thumbnail.svg');
+            : WDCX_Assets::getUrlForAssets('img/thumbnail.svg');
     }
 
     public static function fieldsConfig($form)
-    {
-        $thumbnail = new Typecho_Widget_Helper_Form_Element_Text(
+    {        $thumbnail = new Typecho_Widget_Helper_Form_Element_Text(
             'thumbnail', NULL, NULL, 
-            _IcT('fields.thumbnail.title'), 
-            _IcT('fields.thumbnail.desc')
+            '缩略图', 
+            '文章缩略图的URL地址'
         );
         $thumbnail->input->class = 'w-100';
         $form->addItem($thumbnail);
 
         $excerpt = new Typecho_Widget_Helper_Form_Element_Textarea(
             'custom_excerpt', NULL, NULL, 
-            _IcT('fields.excerpt.title'), 
-            _IcT('fields.excerpt.desc')
+            '摘要', 
+            '自定义文章摘要'
         );
         $excerpt->input->class = 'w-100';
         $form->addItem($excerpt);
 
-        if (defined('__ICARUS_WIDGET_CLASS__') && __ICARUS_WIDGET_CLASS__ == 'Widget_Contents_Page_Edit')
+        if (defined('__WDCX_WIDGET_CLASS__') && __WDCX_WIDGET_CLASS__ == 'Widget_Contents_Page_Edit')
         {
             self::fieldsInfoForPage();
         }
@@ -267,28 +266,28 @@ class Icarus_Content
             self::$fieldsInfoOutputed = TRUE;
 ?>
 <style>
-#icarus-page-info {
+#WDCX-page-info {
     margin: 1em 0;
     padding: 10px 15px;
     background: #FFF;
 }
-#icarus-page-info.fold .description {
+#WDCX-page-info.fold .description {
     display: none;
 }
-#icarus-page-info .typecho-label {
+#WDCX-page-info .typecho-label {
     margin: 0;
 }
-#icarus-page-info .typecho-label a {
+#WDCX-page-info .typecho-label a {
     display: block;
     color: #444;
 }
-#icarus-page-info .typecho-label a:hover {
+#WDCX-page-info .typecho-label a:hover {
     color: #467B96;
     text-decoration: none;
 }
 </style>
-<section id="icarus-page-info" class="typecho-post-option fold">
-    <label id="icarus-page-info-expand" class="typecho-label">
+<section id="WDCX-page-info" class="typecho-post-option fold">
+    <label id="WDCX-page-info-expand" class="typecho-label">
         <a href="#"><i class="i-caret-right"></i> <?php _IcTp('page_special.title'); ?></a>
     </label>
     <div class="description">
@@ -309,9 +308,9 @@ document.addEventListener('DOMContentLoaded', function () {
         $(this).parent().toggleClass('fold');
         return false;
     };
-    $('#icarus-page-info-expand').click(expandCallback);
+    $('#WDCX-page-info-expand').click(expandCallback);
     
-    $('.icarus-autofill-slug').click(function() {
+    $('.WDCX-autofill-slug').click(function() {
         $('#slug').val($(this).text());
         $('#title').val($(this).attr('data-title'));
         $('#slug').trigger('input');
@@ -321,11 +320,11 @@ document.addEventListener('DOMContentLoaded', function () {
         $('#custom-field i.i-caret-right').removeClass('i-caret-right').addClass('i-caret-down');
     }
 
-    if (window.location.hash == '#icarus') {
-        $('#icarus-page-info-expand').click();
+    if (window.location.hash == '#WDCX') {
+        $('#WDCX-page-info-expand').click();
         expandCallback.call(document.getElementById('custom-field-expand'));
         setTimeout(function (){
-            $('#icarus-page-info').effect('highlight', {color : '#FFF6BF', duration: 1000});
+            $('#WDCX-page-info').effect('highlight', {color : '#FFF6BF', duration: 1000});
         }, 200);
     }
 });

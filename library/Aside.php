@@ -1,6 +1,6 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class Icarus_Aside
+class WDCX_Aside
 {
     const LEFT = 0;
     const RIGHT = 1;
@@ -47,41 +47,41 @@ class Icarus_Aside
     public function __construct($position)
     {
         $this->_position = $position;
-        if (Icarus_Util::$widget->is('post'))
+        if (WDCX_Util::$widget->is('post'))
         {
             switch ($position)
             {
                 case self::LEFT:
-                    if (Icarus_Config::get('aside_left_post_hide', false)) {
+                    if (WDCX_Config::get('aside_left_post_hide', false)) {
                         return;
                     }
                     break;
                 case self::RIGHT:
-                    if (Icarus_Config::get('aside_right_post_hide', false)) {
+                    if (WDCX_Config::get('aside_right_post_hide', false)) {
                         return;
                     }
                     break;
             }
         }
         $seqMap = array();
-        $hiddenWidgets = Icarus_Util::$widget->is('post') ? Icarus_Config::get('aside_post_hide_widget') : Icarus_Config::get('aside_non_post_hide_widget');
+        $hiddenWidgets = WDCX_Util::$widget->is('post') ? WDCX_Config::get('aside_post_hide_widget') : WDCX_Config::get('aside_non_post_hide_widget');
         
         if (!is_array($hiddenWidgets))
             $hiddenWidgets = array();
 
         // categories / tags page patch
-        if (Icarus_Util::$widget->is('page', 'categories') && !in_array('Category', $hiddenWidgets))
+        if (WDCX_Util::$widget->is('page', 'categories') && !in_array('Category', $hiddenWidgets))
         {
             $hiddenWidgets[] = 'Category';
         }
-        if (Icarus_Util::$widget->is('page', 'tags') && !in_array('Tag', $hiddenWidgets))
+        if (WDCX_Util::$widget->is('page', 'tags') && !in_array('Tag', $hiddenWidgets))
         {
             $hiddenWidgets[] = 'Tag';
         }
         
         foreach (self::$_asideWidgets as $widgetName)
         {
-            if (Icarus_Module::enabled($widgetName) && self::getWidgetPosition($widgetName) == $position && !in_array($widgetName, $hiddenWidgets))
+            if (WDCX_Module::enabled($widgetName) && self::getWidgetPosition($widgetName) == $position && !in_array($widgetName, $hiddenWidgets))
             {
                 $this->_widgets[] = $widgetName;
                 $seqMap[$widgetName] = self::getWidgetSeq($widgetName);
@@ -112,12 +112,12 @@ class Icarus_Aside
     
     public static function getWidgetPosition($name)
     {
-        return Icarus_Config::get(Icarus_Util::parseName($name) . '_position', 'left') == 'right' ? self::RIGHT : self::LEFT;
+        return WDCX_Config::get(WDCX_Util::parseName($name) . '_position', 'left') == 'right' ? self::RIGHT : self::LEFT;
     }
 
     public static function getWidgetSeq($name)
     {
-        return intval(Icarus_Config::get(Icarus_Util::parseName($name) . '_seq', 0));
+        return intval(WDCX_Config::get(WDCX_Util::parseName($name) . '_seq', 0));
     }
 
     public static function printSideColumnClass()
@@ -155,7 +155,7 @@ class Icarus_Aside
 
     public static function printStickyClassByPos($position)
     {
-        if (Icarus_Config::get(($position == self::RIGHT) ? 'aside_right_sticky' : 'aside_left_sticky', false))
+        if (WDCX_Config::get(($position == self::RIGHT) ? 'aside_right_sticky' : 'aside_left_sticky', false))
         {
             echo ' is-sticky';
         }
@@ -169,7 +169,7 @@ class Icarus_Aside
 <aside class="column<?php $this->printSideColumnClass() ?><?php $this->printVisibilityClass(); ?><?php $this->printOrderClass(); ?><?php $this->printPosition(); ?><?php $this->printStickyClass(); ?>">
 <?php
 foreach ($this->_widgets as $widgetName) {
-    Icarus_Module::show($widgetName);
+    WDCX_Module::show($widgetName);
 }
 ?>
 </aside>
@@ -183,7 +183,7 @@ foreach ($this->_widgets as $widgetName) {
 
     public static function basicConfig($form, $widgetName, $defaultEnable, $defaultPosition, $defaultIndex)
     {
-        $widgetCfgName = Icarus_Util::parseName($widgetName);
+        $widgetCfgName = WDCX_Util::parseName($widgetName);
         
         $form->packTitle($widgetName);
 

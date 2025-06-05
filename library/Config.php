@@ -1,36 +1,40 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-require __ICARUS_ROOT__ . 'library/FormHelper.php';
+require __WDCX_ROOT__ . 'library/FormHelper.php';
 
-class Icarus_Config
+class WDCX_Config
 {
     private $_form;
     private $_titleList = array();
 
-    const PREFIX = 'icarus_';
+    const PREFIX = 'WDCX_';
 
     public static function config($form)
-    {
-        if (!self::cfgVersionMatch())
+    {        if (!self::cfgVersionMatch())
         {
-            Typecho_Widget::widget('Widget_Notice')->set(sprintf(_IcT('setting.cfg_version_notice'), __ICARUS_VERSION__), 'notice');
+            Typecho_Widget::widget('Widget_Notice')->set(sprintf('主题版本已更新到 %s，请检查主题设置。', __WDCX_VERSION__), 'notice');
         }
 
-        $verInfo = new Icarus_Form_VersionField();
+        $verInfo = new WDCX_Form_VersionField();
         $form->_form->addInput($verInfo);
 
-        $form->html(self::CONFIG_STYLESHEET);
-
-        $form->showTitle(_IcT('setting.general.title'), 'General');
+        $form->html(self::CONFIG_STYLESHEET);        $form->showTitle('基本', 'General');
         $form->html(sprintf(
-            _IcT('setting.general.desc'), 
-            __TYPECHO_THEME_DIR__ . '/' . Icarus_Util::$options->theme, // theme dir
-            Typecho_Common::url('write-page.php#icarus', Icarus_Util::$options->adminUrl) // create page link
+            '
+<p><b>注意事项</b></p>
+<ul class="icaurs-general-desc-list">
+<li>资源文件的相对路径是指相对于 <code> %s/assets/</code> 目录的相对路径。</li>
+<li>更换主题会导致本主题的设置项丢失，如有需要请使用<b>主题设置备份</b>功能。</li>
+<li><b>归档页面</b>、<b>分类页面</b>和<b>标签页面</b>，需要手动<a href="%s">创建相应的独立页面</a>才能显示。</li>
+</ul>
+', 
+            __TYPECHO_THEME_DIR__ . '/' . WDCX_Util::$options->theme, // theme dir
+            Typecho_Common::url('write-page.php#WDCX', WDCX_Util::$options->adminUrl) // create page link
         ));
 
-        $form->packInput('General/install_time', date('Y-m-d', Icarus_Util::getSiteInstallTime()), 'w-20');
+        $form->packInput('General/install_time', date('Y-m-d', WDCX_Util::getSiteInstallTime()), 'w-20');
         
-        $form->_form->addInput(new Icarus_Form_ConfigBackup());
+        $form->_form->addInput(new WDCX_Form_ConfigBackup());
     }
 
     public function __construct($form)
@@ -42,18 +46,9 @@ class Icarus_Config
     {
         return self::PREFIX . $key;
     }
-
     private static function optionalDesc($key)
     {
-        $key .= '.desc';
-        if (Icarus_I18n::has($key))
-        {
-            return _IcT($key);
-        }
-        else
-        {
-            return NULL;
-        }
+        return NULL;
     }
 
     private static function cfgNameToLangKey($cfgName)
@@ -62,16 +57,16 @@ class Icarus_Config
         switch (count($split))
         {
             case 2:
-                return 'setting.' . Icarus_Util::parseName($split[0]) . '.' . $split[1];
+                return 'setting.' . WDCX_Util::parseName($split[0]) . '.' . $split[1];
             case 1:
-                return 'setting.' . Icarus_Util::parseName($cfgName);
+                return 'setting.' . WDCX_Util::parseName($cfgName);
         }
     }
 
     private static function cfgNameToCfgKey($cfgName)
     {
         $split = explode('/', $cfgName, 2);
-        return Icarus_Util::parseName($split[0]) . '_' . $split[1];
+        return WDCX_Util::parseName($split[0]) . '_' . $split[1];
     }
 
     public function html($html)
@@ -85,7 +80,7 @@ class Icarus_Config
     {
         $layout = new Typecho_Widget_Helper_Layout('div');
         $layout->html($content);
-        $layout->class = 'icarus-description';
+        $layout->class = 'WDCX-description';
         $this->_form->addItem($layout);
     }
 
@@ -102,26 +97,19 @@ class Icarus_Config
 
         $layout = new Typecho_Widget_Helper_Layout('h2');
         $layout->id = $id;
-        $layout->class = 'icarus-config-title';
+        $layout->class = 'WDCX-config-title';
         $layout->html($title);
 
         $this->_form->addItem($layout);
-    }
-
-    public function packTitle($name)
+    }    public function packTitle($name)
     {
-        $langStr = self::cfgNameToLangKey($name);
-        
-        $this->showTitle(_IcT($langStr . '.title'), $name);
-        if (Icarus_I18n::has($langStr . '.desc'))
-        {
-            $this->showDesc(_IcT($langStr . '.desc'));
-        }
+        // Simplified - use name as title
+        $this->showTitle($name, $name);
     }
 
     public function makeInput($name, $title, $desc, $default = NULL, $classAppend = NULL)
     {
-        $input = new Icarus_Form_Element_Text(
+        $input = new WDCX_Form_Element_Text(
             self::prefixKey($name), NULL, $default, 
             $title, 
             $desc
@@ -139,83 +127,63 @@ class Icarus_Config
         $input = $this->makeInput($name, $title, $desc, $default, $classAppend);
         $input->addRule('isInteger', _t('请填入一个数字'));
         return $input;
-    }
-
-    public function packInput($name, $default = NULL, $classAppend = NULL)
+    }    public function packInput($name, $default = NULL, $classAppend = NULL)
     {
-        $langStr = self::cfgNameToLangKey($name);
-        $this->makeInput(self::cfgNameToCfgKey($name), _IcT($langStr . '.title'), self::optionalDesc($langStr), $default, $classAppend);
+        // Simplified - use name as title
+        $this->makeInput(self::cfgNameToCfgKey($name), $name, NULL, $default, $classAppend);
     }
 
     public function makeTextarea($name, $title, $desc, $default = NULL)
     {
-        $this->_form->addInput(new Icarus_Form_Element_Textarea(
+        $this->_form->addInput(new WDCX_Form_Element_Textarea(
             self::prefixKey($name), NULL, $default, 
             $title, 
             $desc
         ));
-    }
-
-    public function packTextarea($name, $default = NULL)
+    }    public function packTextarea($name, $default = NULL)
     {
-        $langStr = self::cfgNameToLangKey($name);
-        $this->makeTextarea(self::cfgNameToCfgKey($name), _IcT($langStr . '.title'), self::optionalDesc($langStr), $default);
+        // Simplified - use name as title
+        $this->makeTextarea(self::cfgNameToCfgKey($name), $name, NULL, $default);
     }
 
     public function makeRadio($name, $title, $desc, array $options, $default = NULL)
     {
-        $this->_form->addInput(new Icarus_Form_Element_Radio(
+        $this->_form->addInput(new WDCX_Form_Element_Radio(
             self::prefixKey($name), $options, $default, 
             $title, 
             $desc
         ));
-    }
-
-    public function packRadio($name, array $options, $default = NULL)
+    }    public function packRadio($name, array $options, $default = NULL)
     {
-        $langStr = self::cfgNameToLangKey($name);
-        $optionsReal = array();
-        foreach ($options as $option)
-        {
-            $optionsReal[$option] = _IcT($langStr . '.options.' . $option);
-        }
-        $this->makeRadio(self::cfgNameToCfgKey($name), _IcT($langStr . '.title'), self::optionalDesc($langStr), $optionsReal, $default);
+        // Simplified - use name as title and options as-is
+        $this->makeRadio(self::cfgNameToCfgKey($name), $name, NULL, $options, $default);
     }
 
     public function makeCheckbox($name, $title, $desc, array $options)
     {
-        $this->_form->addInput(new Icarus_Form_Element_Checkbox(
+        $this->_form->addInput(new WDCX_Form_Element_Checkbox(
             self::prefixKey($name), $options, NULL, 
             $title, 
             $desc
         ));
-    }
-
-    public function packCheckbox($name, array $options)
+    }    public function packCheckbox($name, array $options)
     {
-        $langStr = self::cfgNameToLangKey($name);
-        $optionsReal = array();
-        foreach ($options as $option)
-        {
-            $optionsReal[$option] = _IcT($langStr . '.options.' . $option);
-        }
-        $this->makeCheckbox(self::cfgNameToCfgKey($name), _IcT($langStr . '.title'), self::optionalDesc($langStr), $optionsReal);
+        // Simplified - use name as title and options as-is
+        $this->makeCheckbox(self::cfgNameToCfgKey($name), $name, NULL, $options);
     }
 
     public function toc()
     {
         $container = new Typecho_Widget_Helper_Layout('div');
-        $container->id = 'icarus-config-toc';
-        $container->class = 'col-mb-12 col-tb-2 hide';
-
-        $title = new Typecho_Widget_Helper_Layout('h2');
-        $title->html(_IcT('general.catalog'));
+        $container->id = 'WDCX-config-toc';
+        $container->class = 'col-mb-12 col-tb-2 hide';        $title = new Typecho_Widget_Helper_Layout('h2');
+        $title->html('目录');
         $container->addItem($title);
         
         $button = new Typecho_Widget_Helper_Layout('button');
         $button->type = 'submit';
         $button->class = 'btn primary btn-xs';
-        $button->id = 'icarus-save-btn';
+        $button->id = 'WDCX-save-btn';
         $button->html(_t('保存设置'));
         $container->addItem($button);
 
@@ -260,8 +228,8 @@ class Icarus_Config
     public static function tryGet($key, &$result)
     {
         $key = self::prefixKey($key);
-        $value = Icarus_Util::$options->$key;
-        $exist = !Icarus_Util::isEmpty($value);
+        $value = WDCX_Util::$options->$key;
+        $exist = !WDCX_Util::isEmpty($value);
         if ($exist)
             $result = $value;
         return $exist;
@@ -269,7 +237,7 @@ class Icarus_Config
 
     public static function cfgVersionMatch()
     {
-        return Icarus_Config::get('config_version') === __ICARUS_CFG_VERSION__;
+        return WDCX_Config::get('config_version') === __WDCX_CFG_VERSION__;
     }
 
     const CONFIG_STYLESHEET = <<<STYLESHEET
@@ -281,14 +249,14 @@ form code
     padding: 2px 4px; 
     border-radius: 3px;
 }
-.icarus-config-title
+.WDCX-config-title
 {
     margin-top: 2em; 
     margin-bottom: 0.2em; 
     border-bottom: 1px solid #D9D9D6; 
     padding-bottom: 0.2em;
 }
-.icarus-description
+.WDCX-description
 {
     color: #999; 
     font-size: .92857em;
@@ -297,7 +265,7 @@ form code
 {
     line-height: 1.8em;
 }
-#icarus-config-toc
+#WDCX-config-toc
 {
     position: relative;
     top: 0;
@@ -305,11 +273,11 @@ form code
     border: 2px solid #ccc;
     background: #eee;
 }
-#icarus-config-toc.hide
+#WDCX-config-toc.hide
 {
     display: none;
 }
-#icarus-config-toc > ul
+#WDCX-config-toc > ul
 {
     padding-left: 0;
     list-style: none;
@@ -317,11 +285,11 @@ form code
     max-height: 75vh;
     overflow-y: scroll;
 }
-#icarus-config-toc > ul > li
+#WDCX-config-toc > ul > li
 {
     margin: 3px 0;
 }
-#icarus-config-toc > ul > li > a
+#WDCX-config-toc > ul > li > a
 {
     display: block;
     text-decoration: none;
@@ -329,15 +297,15 @@ form code
     padding: 1px 0 1px 8px;
     border-left: 2px solid #aaa;
 }
-#icarus-config-toc > ul > li > a:hover
+#WDCX-config-toc > ul > li > a:hover
 {
     border-left-color: #666;
 }
-#icarus-config-toc > h2
+#WDCX-config-toc > h2
 {
     margin: 0 0 .5em 0;
 }
-#icarus-save-btn
+#WDCX-save-btn
 {
     position: absolute;
     right: 10px;
@@ -345,35 +313,35 @@ form code
 }
 @media (max-width: 1200px)
 {
-    #icarus-config-toc
+    #WDCX-config-toc
     {
         width: 20%;
     }
 }
 @media (max-width: 768px)
 {
-    #icarus-config-toc
+    #WDCX-config-toc
     {
         display: none;
     }
 }
 
-#icarus-config-toc > ul::-webkit-scrollbar {
+#WDCX-config-toc > ul::-webkit-scrollbar {
     width: 10px;
     height: 10px;
 }
 
-#icarus-config-toc > ul::-webkit-scrollbar-thumb {
+#WDCX-config-toc > ul::-webkit-scrollbar-thumb {
     background-color: rgba(50, 50, 50, .25);
     border: 2px solid transparent;
     background-clip: padding-box
 }
 
-#icarus-config-toc > ul::-webkit-scrollbar-thumb:hover {
+#WDCX-config-toc > ul::-webkit-scrollbar-thumb:hover {
     background-color: rgba(50, 50, 50, .5)
 }
 
-#icarus-config-toc > ul::-webkit-scrollbar-track {
+#WDCX-config-toc > ul::-webkit-scrollbar-track {
     background-color: rgba(50, 50, 50, 0)
 }
 </style>
@@ -381,7 +349,7 @@ STYLESHEET;
 
     const CONFIG_SCRIPT = <<<SCRIPT
 document.addEventListener('DOMContentLoaded', function () {
-    var toc = $('#icarus-config-toc');
+    var toc = $('#WDCX-config-toc');
     var mainForm = $('.typecho-page-main>div[role="form"]');
 
     toc.appendTo($('.typecho-page-main'));
@@ -392,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     $(window).scroll(function() {
-        var toc = $('#icarus-config-toc');
+        var toc = $('#WDCX-config-toc');
         if (!toc.is(':visible'))
             return;
         var currentScroll = $(window).scrollTop() - 100;
@@ -403,7 +371,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    $('#icarus-save-btn').click(function () {
+    $('#WDCX-save-btn').click(function () {
         $('.typecho-page-main>div[role="form"]>form button[type="submit"]').click();
     });
 });

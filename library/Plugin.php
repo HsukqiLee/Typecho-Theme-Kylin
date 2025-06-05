@@ -1,6 +1,6 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class Icarus_Plugin
+class WDCX_Plugin
 {
     const ENABLE = '1';
     const DISABLE = '0';
@@ -23,7 +23,7 @@ class Icarus_Plugin
         if (!in_array($name, self::$_pluginList))
             return FALSE;
         if (!in_array($name, self::$_pluginLoaded)) {
-            require __ICARUS_ROOT__ . 'library/Plugin/' . $name . '.php';
+            require __WDCX_ROOT__ . 'library/Plugin/' . $name . '.php';
             self::$_pluginLoaded[] = $name;
         }
         return TRUE;
@@ -34,7 +34,7 @@ class Icarus_Plugin
         if (!self::load($pluginName))
             return;
         
-        $pluginClass = 'Icarus_Plugin_' . $pluginName;
+        $pluginClass = 'WDCX_Plugin_' . $pluginName;
         
         $params = func_get_args();
         array_shift($params);
@@ -50,7 +50,7 @@ class Icarus_Plugin
         if (!self::load($pluginName))
             return;
         
-        $pluginClass = 'Icarus_Plugin_' . $pluginName;
+        $pluginClass = 'WDCX_Plugin_' . $pluginName;
         
         $params = func_get_args();
         array_shift($params);
@@ -63,7 +63,7 @@ class Icarus_Plugin
 
     public static function enabled($pluginName)
     {
-        return Icarus_Config::get(Icarus_Util::parseName($pluginName) . '_enable', FALSE) == TRUE;
+        return WDCX_Config::get(WDCX_Util::parseName($pluginName) . '_enable', FALSE) == TRUE;
     }
 
     public static function config($form)
@@ -72,7 +72,7 @@ class Icarus_Plugin
         {
             if (self::load($pluginName))
             {
-                $pluginClass = 'Icarus_Plugin_' . $pluginName;
+                $pluginClass = 'WDCX_Plugin_' . $pluginName;
                 if (method_exists($pluginClass, 'config'))
                 {
                     call_user_func(array($pluginClass, 'config'), $form);
@@ -105,15 +105,13 @@ class Icarus_Plugin
 
     public static function basicConfig($form, $pluginName, $defaultEnable)
     {
-        $form->packTitle($pluginName);
-
-        $form->makeRadio(
-            Icarus_Util::parseName($pluginName) . '_enable', 
-            _IcT('setting.plugin_common.enable.title'), 
+        $form->packTitle($pluginName);        $form->makeRadio(
+            WDCX_Util::parseName($pluginName) . '_enable', 
+            '启用', 
             NULL,
             array(
-                '0' => _IcT('setting.plugin_common.enable.options.0'),
-                '1' => _IcT('setting.plugin_common.enable.options.1'),
+                '0' => '不启用',
+                '1' => '启用',
             ),
             $defaultEnable
         );

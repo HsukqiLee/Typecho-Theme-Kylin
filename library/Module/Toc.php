@@ -1,26 +1,25 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class Icarus_Module_Toc
+class WDCX_Module_Toc
 {
     private static $_toc;
 
     public static function config($form)
     {
-        Icarus_Aside::basicConfig($form, 'Toc', Icarus_Aside::ENABLE, 'right', '0');
+        WDCX_Aside::basicConfig($form, 'Toc', WDCX_Aside::ENABLE, 'right', '0');
     }
 
     public static function output()
     {
-        if (!(Icarus_Page::is('post') || Icarus_Page::is('single')))
+        if (!(WDCX_Page::is('post') || WDCX_Page::is('single')))
             return;
         if (!is_array(self::$_toc) || count(self::$_toc) <= 1)
             return;
 ?>
 <div class="card widget" id="toc">
     <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                <?php _IcTp('general.toc'); ?>
+        <div class="menu">            <h3 class="menu-label">
+                文章目录
             </h3>
 <?php self::treeViewOutput(0); ?>
         </div>

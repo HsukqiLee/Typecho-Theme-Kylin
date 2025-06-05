@@ -1,0 +1,469 @@
+/* 响应式样式文件 */
+
+/* 超大屏幕 (1400px 及以上) */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+    
+    .hero-content h1 {
+        font-size: 4rem;
+    }
+    
+    .section-title h2 {
+        font-size: 3rem;
+    }
+
+    #logo-text {
+        display: block;
+    }
+}
+
+/* 大屏幕 (1200px - 1399px) */
+@media (max-width: 1300px) {
+    .container {
+        max-width: 1140px;
+    }
+
+    #logo-text {
+        display: none!important;
+    }
+}
+
+/* 中等屏幕 (992px - 1199px) */
+@media (max-width: 1199px) {
+    .container {
+        max-width: 960px;
+    }
+
+    #logo-text {
+        display: none;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+}
+
+/* 小屏幕 (768px - 991px) */
+@media (max-width: 991px) {
+    .container {
+        max-width: 720px;
+        padding: 0 15px;
+    }
+
+    #logo-text {
+        display: block;
+    }
+    
+    /* 导航栏移动端适配 */
+    .nav-container {
+        padding: 1rem;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        box-shadow: var(--shadow-medium);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 999;
+    }
+    
+    .nav-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .nav-item {
+        margin: 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .nav-link {
+        display: block;
+        padding: 1rem;
+        border-radius: 0;
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    /* 英雄区域适配 */
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    /* 网格布局适配 */
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .news-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    /* 区块间距调整 */
+    .section {
+        padding: 60px 0;
+    }
+    
+    .section-title {
+        margin-bottom: 40px;
+    }
+    
+    .section-title h2 {
+        font-size: 2rem;
+    }
+}
+
+/* 超小屏幕 (576px - 767px) */
+@media (max-width: 767px) {
+    .container {
+        max-width: 540px;
+    }
+    
+    /* 导航栏进一步适配 */
+    .logo {
+        font-size: 1rem;
+    }
+    
+    .logo img {
+        height: 35px;
+    }
+    
+    /* 英雄区域进一步适配 */
+    .hero {
+        height: 80vh;
+        padding: 2rem 0;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* 按钮适配 */
+    .btn {
+        padding: 10px 24px;
+        font-size: 0.9rem;
+    }
+    
+    /* 卡片适配 */
+    .feature-card {
+        padding: 1.5rem;
+    }
+    
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .news-card {
+        margin-bottom: 1rem;
+    }
+    
+    .news-image {
+        height: 180px;
+    }
+    
+    .news-content {
+        padding: 1rem;
+    }
+    
+    /* 统计数据适配 */
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .stat-item h3 {
+        font-size: 2.5rem;
+    }
+    
+    /* 页脚适配 */
+    .footer {
+        padding: 2rem 0 1rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+    
+    /* 模态框适配 */
+    .modal-content {
+        width: 95%;
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .modal-title {
+        font-size: 1.3rem;
+    }
+    
+    /* 表单适配 */
+    .form-control {
+        padding: 0.625rem 0.875rem;
+        font-size: 0.9rem;
+    }
+    
+    /* 分页适配 */
+    .pagination {
+        flex-wrap: wrap;
+        gap: 0.25rem;
+    }
+    
+    .pagination-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    /* 面包屑适配 */
+    .breadcrumb {
+        flex-wrap: wrap;
+        padding: 0.5rem 0;
+    }
+    
+    .breadcrumb-item {
+        font-size: 0.9rem;
+    }
+}
+
+/* 极小屏幕 (小于576px) */
+@media (max-width: 575px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    /* 导航栏极小屏适配 */
+    .nav-container {
+        padding: 0.75rem 1rem;
+    }
+    
+    .logo {
+        font-size: 0.9rem;
+    }
+    
+    .logo img {
+        height: 30px;
+        margin-right: 8px;
+    }
+    
+    /* 英雄区域极小屏适配 */
+    .hero-content h1 {
+        font-size: 1.8rem;
+        line-height: 1.2;
+    }
+    
+    .hero-content p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    .cta-buttons .btn {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    /* 区块间距极小屏调整 */
+    .section {
+        padding: 40px 0;
+    }
+    
+    .section-title h2 {
+        font-size: 1.75rem;
+        line-height: 1.3;
+    }
+    
+    .section-title p {
+        font-size: 1rem;
+    }
+    
+    /* 卡片极小屏适配 */
+    .feature-card {
+        padding: 1.25rem;
+    }
+    
+    .feature-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .feature-card p {
+        font-size: 0.9rem;
+    }
+    
+    /* 新闻卡片极小屏适配 */
+    .news-image {
+        height: 160px;
+    }
+    
+    .news-title {
+        font-size: 1.1rem;
+        line-height: 1.4;
+    }
+    
+    .news-excerpt {
+        font-size: 0.9rem;
+    }
+    
+    /* 统计数据极小屏适配 */
+    .stat-item h3 {
+        font-size: 2rem;
+    }
+    
+    .stat-item p {
+        font-size: 1rem;
+    }
+    
+    /* 回到顶部按钮适配 */
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+    
+    /* 表单极小屏适配 */
+    .form-group {
+        margin-bottom: 1.25rem;
+    }
+    
+    .form-label {
+        font-size: 0.95rem;
+    }
+    
+    .form-control {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    /* 文件上传极小屏适配 */
+    .file-upload-label {
+        padding: 1.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    /* 提示框极小屏适配 */
+    .alert {
+        padding: 0.875rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* 横屏手机适配 */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        height: 100vh;
+        padding: 1rem 0;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+    
+    .btn {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* 打印样式 */
+@media print {
+    .navbar,
+    .back-to-top,
+    .modal,
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+    
+    .hero {
+        height: auto;
+        background: none !important;
+        color: black !important;
+        page-break-after: always;
+    }
+    
+    .section {
+        padding: 20px 0;
+        page-break-inside: avoid;
+    }
+    
+    .card,
+    .feature-card,
+    .news-card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+    }
+    
+    a {
+        color: black !important;
+        text-decoration: underline;
+    }
+    
+    .btn {
+        border: 1px solid black;
+        background: white !important;
+        color: black !important;
+    }
+}

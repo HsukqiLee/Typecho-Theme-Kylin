@@ -1,10 +1,10 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class Icarus_Module_Category
+class WDCX_Module_Category
 {
     public static function config($form)
     {
-        Icarus_Aside::basicConfig($form, 'Category', Icarus_Aside::ENABLE, 'left', '3');
+        WDCX_Aside::basicConfig($form, 'Category', WDCX_Aside::ENABLE, 'left', '3');
     }
 
     public static function output($showAll = FALSE)

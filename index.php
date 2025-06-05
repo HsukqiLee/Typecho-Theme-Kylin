@@ -1,24 +1,24 @@
 <?php
 /**
- * Port of Ruipeng Zhang's Hexo theme Icarus to Typecho.
+ * Port of Ruipeng Zhang's Hexo theme WDCX to Typecho.
  * 
- * @package Icarus
+ * @package WDCX
  * @author Ruipeng Zhang & KeNorizon
  * @version 1.1.4
- * @link https://github.com/KeNorizon/typecho-theme-icarus
+ * @link https://github.com/KeNorizon/typecho-theme-WDCX
  */
 
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
 $this->need('component/header.php');
 
-Icarus_Module::load('Single');
-$post = new Icarus_Module_Single($this);
+WDCX_Module::load('Single');
+$post = new WDCX_Module_Single($this);
 while ($this->next()) 
 {
 	$post->doOutput();
 }
 
-Icarus_Module::show('Paginator', $this);
+WDCX_Module::show('Paginator', $this);
 
 $this->need('component/footer.php');

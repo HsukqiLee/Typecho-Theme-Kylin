@@ -1,10 +1,10 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class Icarus_Plugin_Animejs
+class WDCX_Plugin_Animejs
 {
     public static function config($form)
     {
-        Icarus_Plugin::basicConfig($form, 'Animejs', Icarus_Plugin::ENABLE);
+        WDCX_Plugin::basicConfig($form, 'Animejs', WDCX_Plugin::ENABLE);
     }
 
     public static function header()
@@ -16,6 +16,6 @@ class Icarus_Plugin_Animejs
 
     public static function footer()
     {
-        Icarus_Assets::printThemeJs('animation.js');
+        WDCX_Assets::printThemeJs('animation.js');
     }
 }

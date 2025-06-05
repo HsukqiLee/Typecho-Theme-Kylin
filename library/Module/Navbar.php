@@ -1,30 +1,28 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class Icarus_Module_Navbar
+class WDCX_Module_Navbar
 {
     public static function config($form)
     {
-        $form->packTitle('Navbar');
-
-        $form->packTextarea('Navbar/menu', 
+        $form->packTitle('Navbar');        $form->packTextarea('Navbar/menu', 
             sprintf(
-                _IcT('setting.navbar.default_value'),
-                Icarus_Util::$options->index,
-                Icarus_Util::urlFor('page', array('slug' => 'archives')),
-                Icarus_Util::urlFor('page', array('slug' => 'categories'))
+                "首页,%s\n归档,%s\n分类,%s",
+                WDCX_Util::$options->index,
+                WDCX_Util::urlFor('page', array('slug' => 'archives')),
+                WDCX_Util::urlFor('page', array('slug' => 'categories'))
             )
         );
-        $form->packTextarea('Navbar/icons', "Download on GitHub,fab fa-github,http://github.com/ppoffice/hexo-theme-icarus");
+        $form->packTextarea('Navbar/icons', "Download on GitHub,fab fa-github,http://github.com/ppoffice/hexo-theme-WDCX");
     }
 
     private static function getMenu()
     {
-        return Icarus_Util::parseMultilineData(Icarus_Config::get('navbar_menu'), 2);
+        return WDCX_Util::parseMultilineData(WDCX_Config::get('navbar_menu'), 2);
     }
 
     private static function getIcons()
     {
-        return Icarus_Util::parseMultilineData(Icarus_Config::get('navbar_icons'), 3);
+        return WDCX_Util::parseMultilineData(WDCX_Config::get('navbar_icons'), 3);
     }
 
     private static function isCurLink($uri)
@@ -38,16 +36,16 @@ class Icarus_Module_Navbar
 <nav class="navbar navbar-main">
     <div class="container">
         <div class="navbar-brand is-flex-center">
-            <a class="navbar-item navbar-logo" href="<?php Icarus_Util::$options->index(); ?>">
-            <?php if (Icarus_Config::tryGet('logo_img', $logo_img)): ?>
-                <img src="<?php echo Icarus_Assets::getUrlForAssets($logo_img); ?>" alt="<?php Icarus_Util::$options->title(); ?>" height="28">
+            <a class="navbar-item navbar-logo" href="<?php WDCX_Util::$options->index(); ?>">
+            <?php if (WDCX_Config::tryGet('logo_img', $logo_img)): ?>
+                <img src="<?php echo WDCX_Assets::getUrlForAssets($logo_img); ?>" alt="<?php WDCX_Util::$options->title(); ?>" height="28">
             <?php else: ?>
-                <?php echo Icarus_Config::get('logo_text', Icarus_Util::$options->title); ?>
+                <?php echo WDCX_Config::get('logo_text', WDCX_Util::$options->title); ?>
             <?php endif; ?>
             </a>
         </div>
         <div class="navbar-menu">
-            <?php if (Icarus_Config::has('navbar_menu')): $menu = self::getMenu(); ?>
+            <?php if (WDCX_Config::has('navbar_menu')): $menu = self::getMenu(); ?>
             <div class="navbar-start">
                 <?php foreach ($menu as $menuItem): ?>
                 <a class="navbar-item<?php if (self::isCurLink($menuItem[1])) { ?> is-active<?php } ?>"
@@ -56,7 +54,7 @@ class Icarus_Module_Navbar
             </div>
             <?php endif; ?>
             <div class="navbar-end">
-            <?php if (Icarus_Config::has('navbar_icons')): $icons = self::getIcons(); ?>
+            <?php if (WDCX_Config::has('navbar_icons')): $icons = self::getIcons(); ?>
                 <?php foreach ($icons as $iconItem): ?>
                 <a class="navbar-item" target="_blank" title="<?php echo $iconItem[0]; ?>" href="<?php echo $iconItem[2]; ?>">
                     <?php if (empty($iconItem[1])): ?>
@@ -67,12 +65,12 @@ class Icarus_Module_Navbar
                 </a>
                 <?php endforeach; ?>
             <?php endif; ?>
-            <?php if (Icarus_Module::enabled('Toc') && Icarus_Page::is('single')): ?>
+            <?php if (WDCX_Module::enabled('Toc') && WDCX_Page::is('single')): ?>
                 <a class="navbar-item is-hidden-tablet catalogue" title="<?php _IcTp('general.catalog'); ?>" href="javascript:;">
                     <i class="fas fa-list-ul"></i>
                 </a>
             <?php endif; ?>
-            <?php if (Icarus_Module::enabled('Search')): ?>
+            <?php if (WDCX_Module::enabled('Search')): ?>
                 <a class="navbar-item search" title="<?php _IcTp('search.title'); ?>" href="javascript:;">
                     <i class="fas fa-search"></i>
                 </a>

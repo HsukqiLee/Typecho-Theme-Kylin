@@ -1,10 +1,10 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class Icarus_Module_RecentPost
+class WDCX_Module_RecentPost
 {
     public static function config($form)
     {
-        Icarus_Aside::basicConfig($form, 'RecentPost', Icarus_Aside::ENABLE, 'right', '1');
+        WDCX_Aside::basicConfig($form, 'RecentPost', WDCX_Aside::ENABLE, 'right', '1');
         
         $form->packInput('RecentPost/limit', '5', 'w-20');
         $form->packRadio('RecentPost/thumbnail', array('0', '1'), '1');
@@ -12,7 +12,7 @@ class Icarus_Module_RecentPost
 
     private static function getLimit()
     {
-        $limit = intval(Icarus_Config::get('recent_post_limit', 5));
+        $limit = intval(WDCX_Config::get('recent_post_limit', 5));
         if ($limit <= 0)
             $limit = 5;
         return $limit;
@@ -23,20 +23,19 @@ class Icarus_Module_RecentPost
         $posts = Typecho_Widget::widget('Widget_Contents_Post_Recent', 'pageSize=' . self::getLimit());
         if ($posts->length == 0)
             return;
-        $thumbnailEnabled = !!Icarus_Config::get('recent_post_thumbnail', true);
+        $thumbnailEnabled = !!WDCX_Config::get('recent_post_thumbnail', true);
 
 ?>
 <div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            <?php _IcTp('recent_post.title'); ?>
+    <div class="card-content">        <h3 class="menu-label">
+            最新文章
         </h3>
 <?php while ($posts->next()): ?>
 <div class="media">
     <?php if ($thumbnailEnabled): ?>
     <a href="<?php $posts->permalink(); ?>" class="media-left">
         <p class="image is-64x64">
-            <img class="thumbnail" src="<?php echo Icarus_Content::getThumbnail($posts); ?>" alt="<?php $posts->title(); ?>">
+            <img class="thumbnail" src="<?php echo WDCX_Content::getThumbnail($posts); ?>" alt="<?php $posts->title(); ?>">
         </p>
     </a>
     <?php endif; ?>

@@ -1,6 +1,6 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class Icarus_Assets
+class WDCX_Assets
 {
     private static $_assetsBaseUrl;
     private static $_cdnProviders = array(
@@ -64,29 +64,29 @@ class Icarus_Assets
 
     public static function init()
     {
-        self::$_assetsBaseUrl = Icarus_Config::get(
+        self::$_assetsBaseUrl = WDCX_Config::get(
             'assets_theme_assets_base',
-            Typecho_Common::url('assets', Icarus_Util::$options->themeUrl)
+            Typecho_Common::url('assets', WDCX_Util::$options->themeUrl)
         );  
 
         self::loadAssetsCDNConfig(
             'assets', 
-            Icarus_Config::get('assets_public_assets'), 
+            WDCX_Config::get('assets_public_assets'), 
             self::DEFAULT_ASSETS_CDN
         );
         self::loadAssetsCDNConfig(
             'icon', 
-            Icarus_Config::get('assets_public_icon'), 
+            WDCX_Config::get('assets_public_icon'), 
             self::DEFAULT_ICON_CDN
         );
         self::loadAssetsCDNConfig(
             'font', 
-            Icarus_Config::get('assets_public_font'), 
+            WDCX_Config::get('assets_public_font'), 
             self::DEFAULT_FONT_CDN
         );
         self::loadAssetsCDNConfig(
             'gravatar', 
-            Icarus_Config::get('assets_public_gravatar'), 
+            WDCX_Config::get('assets_public_gravatar'), 
             self::DEFAULT_GRAVATAR_CDN
         );
     }
@@ -108,7 +108,7 @@ class Icarus_Assets
 
     public static function getUrlForAssets($path)
     {
-        if (Icarus_Util::isUrl($path))
+        if (WDCX_Util::isUrl($path))
             return $path;
         return Typecho_Common::url($path, self::$_assetsBaseUrl);
     }
@@ -210,7 +210,7 @@ class Icarus_Assets
                 $funcName = 'getCdnUrl';
                 break;
         }
-        $url = call_user_func_array(array('Icarus_Assets', $funcName), $args);
+        $url = call_user_func_array(array('WDCX_Assets', $funcName), $args);
         if (empty($url))
         {
             return;

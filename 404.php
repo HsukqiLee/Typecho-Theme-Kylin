@@ -1,8 +1,8 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
-Icarus_Aside::$asideLeft->clear();
-Icarus_Aside::$asideRight->clear();
+WDCX_Aside::$asideLeft->clear();
+WDCX_Aside::$asideRight->clear();
 
 $this->need('component/header.php');
 
@@ -16,7 +16,7 @@ $this->need('component/header.php');
     <div class="card-footer">
         <?php if (!empty($jump)): ?>
         <p class="card-footer-item">
-            <span><a href="<?php echo $jumpTarget; ?>" id="icarus-jump-guide"><?php echo $jump; ?></a></span>
+            <span><a href="<?php echo $jumpTarget; ?>" id="WDCX-jump-guide"><?php echo $jump; ?></a></span>
         </p>
         <?php endif; ?>
         <p class="card-footer-item">

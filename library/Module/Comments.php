@@ -1,6 +1,6 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class Icarus_Module_Comments
+class WDCX_Module_Comments
 {
     public static function config($form)
     {
@@ -15,7 +15,7 @@ class Icarus_Module_Comments
 
     public static function output($widget)
     {
-        switch (Icarus_Config::get('comments_type'))
+        switch (WDCX_Config::get('comments_type'))
         {
             case 'internal':
             default:
@@ -29,8 +29,8 @@ class Icarus_Module_Comments
 
     public static function printCommentAuthor($comment, $autoLink = NULL, $noFollow = NULL)
     {
-        $autoLink = (NULL === $autoLink) ? Icarus_Util::$options->commentsShowUrl : $autoLink;
-        $noFollow = (NULL === $noFollow) ? Icarus_Util::$options->commentsUrlNofollow : $noFollow;
+        $autoLink = (NULL === $autoLink) ? WDCX_Util::$options->commentsShowUrl : $autoLink;
+        $noFollow = (NULL === $noFollow) ? WDCX_Util::$options->commentsUrlNofollow : $noFollow;
 
         if ($comment->url && $autoLink) {
             echo '<a href="' , $comment->url , '"' , ($noFollow ? ' rel="external nofollow noopener"' : ' rel="noopener"') , ' target="_blank">' , $comment->author , '</a>';
@@ -42,7 +42,7 @@ class Icarus_Module_Comments
     private static function outputInternal($widget)
     {
         $widget->comments()->to($comments);
-        $options = Icarus_Util::$options;
+        $options = WDCX_Util::$options;
         $user = Typecho_Widget::widget('Widget_User');
         if ($comments->have() || $widget->allow('comment')):
 ?>
@@ -55,7 +55,7 @@ class Icarus_Module_Comments
         <div class="comment-list">
         <?php $comments->listComments(array('before' => '', 'after' => '')); ?>
         </div>
-        <?php Icarus_Module::show('Paginator', $comments); ?>
+        <?php WDCX_Module::show('Paginator', $comments); ?>
 
         <?php if ($widget->allow('comment')): ?>
         <div id="<?php $widget->respondId(); ?>" class="respond">
@@ -110,7 +110,7 @@ class Icarus_Module_Comments
                 <div class="media">
                     <figure class="media-left">
                         <p class="image is-64x64">
-                            <img id="comment-form-avatar" src="<?php echo Icarus_Util::getAvatar($user->mail ? $user->mail : $widget->remember('mail', TRUE), 128);?>" data-avatar-url-tpl="<?php echo Icarus_Util::getAvatar('{mail}', '{size}');?>">
+                            <img id="comment-form-avatar" src="<?php echo WDCX_Util::getAvatar($user->mail ? $user->mail : $widget->remember('mail', TRUE), 128);?>" data-avatar-url-tpl="<?php echo WDCX_Util::getAvatar('{mail}', '{size}');?>">
                         </p>
                     </figure>
                     <div class="media-content">
@@ -145,7 +145,7 @@ class Icarus_Module_Comments
 ?>
 <div class="card">
     <div class="card-content comment-container">
-        <?php echo str_replace('{identifier}', $identifier, Icarus_Config::get('comments_custom_content', '')); ?>
+        <?php echo str_replace('{identifier}', $identifier, WDCX_Config::get('comments_custom_content', '')); ?>
     </div>
 </div>
 <?php
@@ -158,13 +158,13 @@ function threadedComments($comments, $options)
 <div class="media comment">
     <figure class="media-left">
         <p class="image is-48x48">
-        <img src="<?php echo Icarus_Util::getAvatar($comments->mail, 96); ?>">
+        <img src="<?php echo WDCX_Util::getAvatar($comments->mail, 96); ?>">
         </p>
     </figure>
     <div class="media-content" id="<?php $comments->theId(); ?>">
         <div class="content">
             <div class="comment-header">
-                <span class="comment-author"><?php Icarus_Module_Comments::printCommentAuthor($comments); ?></span>
+                <span class="comment-author"><?php WDCX_Module_Comments::printCommentAuthor($comments); ?></span>
                 <?php if ($comments->authorId && $comments->authorId == $comments->ownerId): ?>
                 <span class="tag is-info"><?php _IcTp('comments.is_author'); ?></span>
                 <?php endif; ?>
@@ -173,7 +173,7 @@ function threadedComments($comments, $options)
                 <?php endif; ?>
             </div>
             <div class="comment-content"><?php $comments->content(); ?></div>
-            <div class="comment-meta"><?php $comments->reply('回复'); ?> · <time itemprop="commentTime" datetime="<?php $comments->date('c'); ?>"><?php $comments->date(Icarus_Util::$options->commentDateFormat);?></time></div>
+            <div class="comment-meta"><?php $comments->reply('回复'); ?> · <time itemprop="commentTime" datetime="<?php $comments->date('c'); ?>"><?php $comments->date(WDCX_Util::$options->commentDateFormat);?></time></div>
         </div>
         <?php if ($comments->children): ?>
         <div class="comment-children">

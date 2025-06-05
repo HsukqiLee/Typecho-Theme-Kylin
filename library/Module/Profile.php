@@ -1,9 +1,9 @@
 <?php
-class Icarus_Module_Profile
+class WDCX_Module_Profile
 {
     public static function config($form)
     {
-        Icarus_Aside::basicConfig($form, 'profile', Icarus_Aside::ENABLE, 'left', '0');
+        WDCX_Aside::basicConfig($form, 'profile', WDCX_Aside::ENABLE, 'left', '0');
         $form->packInput('Profile/author', 'Your name', 'w-40');
         $form->packInput('Profile/author_title', 'Your title', 'w-40');
         $form->packInput('Profile/location', 'Your location', 'w-40');
@@ -15,21 +15,21 @@ class Icarus_Module_Profile
 
     private static function printAvatarUrl()
     {
-        $avatar = Icarus_Config::get('profile_avatar');
-        if (Icarus_Config::tryGet('profile_gravatar', $gravatarEmail))
+        $avatar = WDCX_Config::get('profile_avatar');
+        if (WDCX_Config::tryGet('profile_gravatar', $gravatarEmail))
         {
-            echo Icarus_Util::getAvatar($gravatarEmail, 128);
+            echo WDCX_Util::getAvatar($gravatarEmail, 128);
         }
         else
         {
-            echo Icarus_Assets::getUrlForAssets(
-                Icarus_Config::get('profile_avatar', 'img/avatar.png'));
+            echo WDCX_Assets::getUrlForAssets(
+                WDCX_Config::get('profile_avatar', 'img/avatar.png'));
         }
     }
 
     private static function getSocialLinks()
     {
-        return Icarus_Util::parseMultilineData(Icarus_Config::get('profile_social_links'), 3);
+        return WDCX_Util::parseMultilineData(WDCX_Config::get('profile_social_links'), 3);
     }
 
     public static function output()
@@ -42,18 +42,18 @@ class Icarus_Module_Profile
                 <div>
                     <img class="image is-128x128 has-mb-6 profile-avatar is-rounded" 
                         src="<?php self::printAvatarUrl(); ?>" 
-                        alt="<?php echo Icarus_Config::get('profile_author'); ?>" />
-                    <?php if (Icarus_Config::tryGet('profile_author', $profileAuthor)): ?>
+                        alt="<?php echo WDCX_Config::get('profile_author'); ?>" />
+                    <?php if (WDCX_Config::tryGet('profile_author', $profileAuthor)): ?>
                     <p class="is-size-4 is-block">
                         <?php echo $profileAuthor; ?>
                     </p>
                     <?php endif; ?>
-                    <?php if (Icarus_Config::tryGet('profile_author_title', $profileAuthorTitle)): ?>
+                    <?php if (WDCX_Config::tryGet('profile_author_title', $profileAuthorTitle)): ?>
                     <p class="is-size-6 is-block">
                         <?php echo $profileAuthorTitle; ?>
                     </p>
                     <?php endif; ?>
-                    <?php if (Icarus_Config::tryGet('profile_location', $profileLocation)): ?>
+                    <?php if (WDCX_Config::tryGet('profile_location', $profileLocation)): ?>
                     <p class="is-size-6 is-flex is-flex-center has-text-grey">
                         <i class="fas fa-map-marker-alt has-mr-7"></i>
                         <span><?php echo $profileLocation; ?></span>
@@ -64,40 +64,38 @@ class Icarus_Module_Profile
         </nav>
         <nav class="level is-mobile">
             <div class="level-item has-text-centered is-marginless">
-                <div>
-                    <p class="heading">
-                        <?php _IcTp('general.posts'); ?>
+                <div>                    <p class="heading">
+                        文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        <?php echo Icarus_Util::stat()->publishedPostsNum(); ?>
+                        <?php echo WDCX_Util::stat()->publishedPostsNum(); ?>
                     </p>
                 </div>
             </div>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        <?php _IcTp('general.categories'); ?>
+                        分类
                     </p>
                     <p class="title has-text-weight-normal">
-                        <?php echo Icarus_Util::stat()->categoriesNum(); ?>
+                        <?php echo WDCX_Util::stat()->categoriesNum(); ?>
                     </p>
                 </div>
             </div>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        <?php _IcTp('profile.run_days'); ?>
+                        天数
                     </p>
                     <p class="title has-text-weight-normal">
-                        <?php echo Icarus_Util::getSiteRunDays(); ?>
+                        <?php echo WDCX_Util::getSiteRunDays(); ?>
                     </p>
                 </div>
             </div>
         </nav>
-        <?php if (Icarus_Config::tryGet('profile_follow_link', $profileFollowLink)): ?>
-        <div class="level">
-            <a class="level-item button is-link is-rounded" href="<?php echo $profileFollowLink; ?>">
-                <?php _IcTp('profile.follow'); ?></a>
+        <?php if (WDCX_Config::tryGet('profile_follow_link', $profileFollowLink)): ?>
+        <div class="level">            <a class="level-item button is-link is-rounded" href="<?php echo $profileFollowLink; ?>">
+                关注我</a>
         </div>
         <?php endif; ?>
         <?php $socialLinks = self::getSocialLinks(); ?>

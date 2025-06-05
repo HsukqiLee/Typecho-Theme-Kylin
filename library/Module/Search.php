@@ -1,6 +1,6 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class Icarus_Module_Search
+class WDCX_Module_Search
 {
     public static function config($form)
     {
@@ -12,7 +12,7 @@ class Icarus_Module_Search
 
     public static function output()
     {
-        switch (Icarus_Config::get('search_type', 'internal'))
+        switch (WDCX_Config::get('search_type', 'internal'))
         {
             case 'internal':
             default:
@@ -23,7 +23,7 @@ class Icarus_Module_Search
 
     public static function header()
     {
-        Icarus_Assets::printThemeCss('search.css');
+        WDCX_Assets::printThemeCss('search.css');
     }
 
     private static function outputInternal()
@@ -32,8 +32,8 @@ class Icarus_Module_Search
 <div class="searchbox">
     <div class="searchbox-container">
         <div class="searchbox-input-wrapper">
-            <form class="search-form" method="post" action="<?php Icarus_Util::$options->siteUrl(); ?>" role="search">
-                <input name="s" type="text" class="searchbox-input" placeholder="<?php _IcTp('search.placeholder'); ?>" />
+            <form class="search-form" method="post" action="<?php WDCX_Util::$options->siteUrl(); ?>" role="search">
+                <input name="s" type="text" class="searchbox-input" placeholder="输入关键字搜索" />
                 <span class="searchbox-close searchbox-selectable"><i class="fa fa-times-circle"></i></span>
             </form>
         </div>

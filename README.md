@@ -1,17 +1,17 @@
 <p align="center">
-<img height="48" src="https://raw.githubusercontent.com/keroliang/typecho-theme-icarus/master/assets/img/logo.svg">
+<img height="48" src="https://raw.githubusercontent.com/keroliang/typecho-theme-WDCX/master/assets/img/logo.svg">
 <br> 
 A simple, delicate and modern theme | 一个简洁、精致、现代的 Typecho 主题
 <br>
-本主题为 <a href="https://github.com/ppoffice">Ruipeng Zhang</a> 的 Hexo 主题 <a href="https://github.com/ppoffice/hexo-theme-icarus/">Icarus</a> 的 Typecho 移植版本。
+本主题为 <a href="https://github.com/ppoffice">Ruipeng Zhang</a> 的 Hexo 主题 <a href="https://github.com/ppoffice/hexo-theme-WDCX/">WDCX</a> 的 Typecho 移植版本。
 </p>
 
 ## 预览 Preview
 
-![Icarus Preview](https://user-images.githubusercontent.com/32296555/55554465-6ca20d00-5715-11e9-852d-3072f1571854.png)
+![WDCX Preview](https://user-images.githubusercontent.com/32296555/55554465-6ca20d00-5715-11e9-852d-3072f1571854.png)
 
-- Hexo Demo (Original Theme): [hexo-theme-icarus](https://blog.zhangruipeng.me/hexo-theme-icarus/)
-- [图片预览](https://github.com/KeNorizon/typecho-theme-icarus/wiki/%E5%9B%BE%E7%89%87%E9%A2%84%E8%A7%88)
+- Hexo Demo (Original Theme): [hexo-theme-WDCX](https://blog.zhangruipeng.me/hexo-theme-WDCX/)
+- [图片预览](https://github.com/KeNorizon/typecho-theme-WDCX/wiki/%E5%9B%BE%E7%89%87%E9%A2%84%E8%A7%88)
 
 ## 安装 Installation
 
@@ -19,11 +19,11 @@ A simple, delicate and modern theme | 一个简洁、精致、现代的 Typecho 
 
    获取途径如下：
 
-   - 下载[最新发布版本](https://github.com/KeNorizon/typecho-theme-icarus/releases)（较稳定）
-   - 下载[最新的 master 分支](https://github.com/KeNorizon/typecho-theme-icarus/archive/master.zip)（包含新的特性，不保证稳定性）
+   - 下载[最新发布版本](https://github.com/KeNorizon/typecho-theme-WDCX/releases)（较稳定）
+   - 下载[最新的 master 分支](https://github.com/KeNorizon/typecho-theme-WDCX/archive/master.zip)（包含新的特性，不保证稳定性）
 
-2. 将本主题压缩包解压到 Typecho 博客的 `usr/themes/icarus/` 目录下。
-3. 前往 Typecho 控制台 - 网站外观 - 可以使用的外观 页面，启用 Icarus 主题。
+2. 将本主题压缩包解压到 Typecho 博客的 `usr/themes/WDCX/` 目录下。
+3. 前往 Typecho 控制台 - 网站外观 - 可以使用的外观 页面，启用 WDCX 主题。
 
 ## 更新 Upgrade
 
