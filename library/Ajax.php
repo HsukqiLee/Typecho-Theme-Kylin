@@ -1,7 +1,7 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
-class WDCX_Ajax
+class Icarus_Ajax
 {
     public static function handle()
     {
@@ -9,28 +9,28 @@ class WDCX_Ajax
         $request = Typecho_Request::getInstance();
         $notice = Typecho_Widget::widget('Widget_Notice');
 
-        if ($request->isPost() && isset($request->WDCX_action))
+        if ($request->isPost() && isset($request->icarus_action))
         {
             ob_clean();
             $security->protect();
 
-            switch ($request->WDCX_action)
+            switch ($request->icarus_action)
             {
                 case 'backup_save':
-                    $result = WDCX_Backup::save();
+                    $result = Icarus_Backup::save();
                     $msgId = 'setting.backup.result.save';
                 break;
                 case 'backup_delete':
-                    $result = WDCX_Backup::delete();
+                    $result = Icarus_Backup::delete();
                     $msgId = 'setting.backup.result.delete';
                 break;
                 case 'backup_restore':
-                    $result = WDCX_Backup::restore();
+                    $result = Icarus_Backup::restore();
                     $msgId = 'setting.backup.result.restore';
                 break;
                 default:
                     $notice->set(_IcT($msgId), $result ? 'success' : 'error');
-                    WDCX_Util::jsonResponse(array(
+                    Icarus_Util::jsonResponse(array(
                         'action' => 'refresh'
                     ));
                     exit;
@@ -38,7 +38,7 @@ class WDCX_Ajax
             }
             
             $notice->set(_IcT($msgId . '.' . $result), $result == 0 ? 'success' : 'error');
-            WDCX_Util::jsonResponse(array(
+            Icarus_Util::jsonResponse(array(
                 'action' => 'refresh'
             ));
             exit;

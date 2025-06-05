@@ -1,6 +1,6 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class WDCX_Page
+class Icarus_Page
 {
     public static function init()
     {
@@ -9,28 +9,30 @@ class WDCX_Page
 
     private static function descMetaPatch()
     {
-        $widget = WDCX_Util::$widget;
+        $widget = Icarus_Util::$widget;
         if ($widget->is('single')) {
-            if (!WDCX_Util::isEmpty($widget->fields->custom_excerpt)) {
+            if (!Icarus_Util::isEmpty($widget->fields->custom_excerpt)) {
                 $excerpt = strip_tags($widget->markdown($widget->fields->custom_excerpt));
                 $widget->setDescription($excerpt);
             }
         }
-    }    public static function printPageTitle()
+    }
+
+    public static function printPageTitle()
     {
-        WDCX_Util::$widget->archiveTitle(array(
-            'category' => '「%s」分类下的文章',
-            'search' => '包含关键字「%s」的文章',
-            'tag' => '「%s」标签下的文章',
-            'author' => '%s 发布的文章',
-            'date' => '%s发布的文章'
+        Icarus_Util::$widget->archiveTitle(array(
+            'category' => _IcT('title.category'),
+            'search' => _IcT('title.search'),
+            'tag' => _IcT('title.tag'),
+            'author' => _IcT('title.author'),
+            'date' => _IcT('title.date')
         ), '', ' - ');
-        WDCX_Util::$options->title();
+        Icarus_Util::$options->title();
     }
 
     public static function printHtmlLang()
     {
-        $lang = WDCX_Util::$options->lang;
+        $lang = Icarus_Util::$options->lang;
         if (empty($lang))
             $lang = 'zh-CN';
         else
@@ -42,28 +44,28 @@ class WDCX_Page
     public static function printHeader()
     {
         // favicon
-        WDCX_Config::callback('head_favicon', function ($faviconUrl) {
-            echo '<link rel="icon" href="', WDCX_Assets::getUrlForAssets($faviconUrl), '" />', PHP_EOL;
+        Icarus_Config::callback('head_favicon', function ($faviconUrl) {
+            echo '<link rel="icon" href="', Icarus_Assets::getUrlForAssets($faviconUrl), '" />', PHP_EOL;
         });
         
         // search
-        WDCX_Module::load('Search');
-        WDCX_Module_Search::header();
+        Icarus_Module::load('Search');
+        Icarus_Module_Search::header();
 
         // custom head content
-        echo WDCX_Config::get('head_extend');
+        echo Icarus_Config::get('head_extend');
 
         // todo: open graph
     }
 
     public static function printBodyColumnClass()
     {
-        echo 'is-', WDCX_Aside::getColumnCount(), '-column';
+        echo 'is-', Icarus_Aside::getColumnCount(), '-column';
     }
 
     public static function printContainerColumnClass()
     {
-        switch (WDCX_Aside::getColumnCount()) {
+        switch (Icarus_Aside::getColumnCount()) {
             case 1:
                 echo 'is-12';
                 break;
@@ -78,7 +80,7 @@ class WDCX_Page
 
     public static function is($archiveType, $archiveSlug = NULL)
     {
-        return WDCX_Util::$widget->is($archiveType, $archiveSlug);
+        return Icarus_Util::$widget->is($archiveType, $archiveSlug);
     }
 
     public static function config($form)
@@ -102,7 +104,7 @@ class WDCX_Page
 
     public static function getFooterLinks()
     {
-        $result = WDCX_Util::parseMultilineData(WDCX_Config::get('footer_links'), 3);
+        $result = Icarus_Util::parseMultilineData(Icarus_Config::get('footer_links'), 3);
         if (!empty($result)) {
             foreach ($result as $k => $link) {
                 $result[$k][1] = empty($link[1]) ? null : explode('|', $link[1]);

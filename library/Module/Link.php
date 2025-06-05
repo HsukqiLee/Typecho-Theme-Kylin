@@ -1,10 +1,10 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class WDCX_Module_Link
+class Icarus_Module_Link
 {
     public static function config($form)
     {
-        WDCX_Aside::basicConfig($form, 'Link', WDCX_Aside::ENABLE, 'left', '2');
+        Icarus_Aside::basicConfig($form, 'Link', Icarus_Aside::ENABLE, 'left', '2');
 
         $form->packTextarea('Link/links', "Typecho,http://typecho.org/\nGitHub,https://github.com/");
     }
@@ -16,7 +16,7 @@ class WDCX_Module_Link
 
     private static function getLinks()
     {
-        return WDCX_Util::parseMultilineData(WDCX_Config::get('link_links'), 2);
+        return Icarus_Util::parseMultilineData(Icarus_Config::get('link_links'), 2);
     }
 
     public static function output()

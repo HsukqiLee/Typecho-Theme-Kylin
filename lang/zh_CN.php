@@ -480,7 +480,7 @@ return array(
                 ),
             ),
         ),
-        'cfg_version_notice' => 'WDCX 主题已更新至版本 %s，请点击保存设置按钮使新的设置项生效。',
+        'cfg_version_notice' => 'Icarus 主题已更新至版本 %s，请点击保存设置按钮使新的设置项生效。',
         'backup' => array(
             'status' => array(
                 '0' => '备份状态：不存在',
@@ -520,11 +520,11 @@ return array(
         ),
     ),
     'page_special' => array(
-        'title' => 'WDCX 内置页面说明',
+        'title' => 'Icarus 内置页面说明',
         'desc' => array(
-            'archives' => '<p>归档页面展示要求：新建一个缩略名为 <code><a href="javascript:;" class="WDCX-autofill-slug" data-title="归档" title="点击自动填入">archives</a></code> 的独立页面。</p>',
-            'categories' => '<p>分类页面展示要求：新建一个缩略名为 <code><a href="javascript:;" class="WDCX-autofill-slug" data-title="分类" title="点击自动填入">categories</a></code> 的独立页面。</p>',
-            'tags' => '<p>标签页面展示要求：新建一个缩略名为 <code><a href="javascript:;" class="WDCX-autofill-slug" data-title="标签" title="点击自动填入">tags</a></code> 的独立页面。</p>',
+            'archives' => '<p>归档页面展示要求：新建一个缩略名为 <code><a href="javascript:;" class="icarus-autofill-slug" data-title="归档" title="点击自动填入">archives</a></code> 的独立页面。</p>',
+            'categories' => '<p>分类页面展示要求：新建一个缩略名为 <code><a href="javascript:;" class="icarus-autofill-slug" data-title="分类" title="点击自动填入">categories</a></code> 的独立页面。</p>',
+            'tags' => '<p>标签页面展示要求：新建一个缩略名为 <code><a href="javascript:;" class="icarus-autofill-slug" data-title="标签" title="点击自动填入">tags</a></code> 的独立页面。</p>',
         ),
     ),
 );

@@ -1,7 +1,7 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
-class WDCX_Util
+class Icarus_Util
 {
     public static $options;
     public static $widget;
@@ -50,12 +50,12 @@ class WDCX_Util
 
     public static function getAvatar($email, $size)
     {
-        return self::getGravatar($email, WDCX_Assets::getGravatarUrl(), $size, WDCX_Config::get('comments_default_avatar'));
+        return self::getGravatar($email, Icarus_Assets::getGravatarUrl(), $size, Icarus_Config::get('comments_default_avatar'));
     }
 
     public static function getGravatar($email, $host, $size, $default = null)
     {
-        $rating = WDCX_Util::$options->commentsAvatarRating;
+        $rating = Icarus_Util::$options->commentsAvatarRating;
         $hash = md5(strtolower($email));
         $avatar = $host . '/' . $hash . '?s=' . $size . '&r=' . $rating;
         if (!empty($default)) {
@@ -77,7 +77,7 @@ class WDCX_Util
 
     public static function getSiteRunDays()
     {
-        if (WDCX_Config::tryGet('general_install_time', $installTime))
+        if (Icarus_Config::tryGet('general_install_time', $installTime))
         {
             $date = DateTime::createFromFormat('Y-m-d', $installTime);
         }
@@ -92,7 +92,7 @@ class WDCX_Util
 
     public static function getSiteInstallYear()
     {
-        if (WDCX_Config::tryGet('general_install_time', $installTime))
+        if (Icarus_Config::tryGet('general_install_time', $installTime))
         {
             $date = DateTime::createFromFormat('Y-m-d', $installTime);
         }

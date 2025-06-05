@@ -1,6 +1,6 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class WDCX_Module
+class Icarus_Module
 {
     private static $_moduleList = array(
         'Single', 
@@ -24,7 +24,7 @@ class WDCX_Module
         if (!in_array($name, self::$_moduleList))
             return FALSE;
         if (!in_array($name, self::$_moduleLoaded)) {
-            require __WDCX_ROOT__ . 'library/Module/' . $name . '.php';
+            require __ICARUS_ROOT__ . 'library/Module/' . $name . '.php';
             self::$_moduleLoaded[] = $name;
         }
         return TRUE;
@@ -36,12 +36,12 @@ class WDCX_Module
             return;
         $params = func_get_args();
         array_shift($params);
-        call_user_func_array(array('WDCX_Module_' . $name, 'output'), $params);
+        call_user_func_array(array('Icarus_Module_' . $name, 'output'), $params);
     }
 
     public static function enabled($name)
     {
-        return WDCX_Config::get(WDCX_Util::parseName($name) . '_enable', FALSE) == TRUE;
+        return Icarus_Config::get(Icarus_Util::parseName($name) . '_enable', FALSE) == TRUE;
     }
 
     public static function config($form)
@@ -50,7 +50,7 @@ class WDCX_Module
         {
             if (self::load($moduleName))
             {
-                $moduleClass = 'WDCX_Module_' . $moduleName;
+                $moduleClass = 'Icarus_Module_' . $moduleName;
                 if (method_exists($moduleClass, 'config'))
                 {
                     call_user_func(array($moduleClass, 'config'), $form);

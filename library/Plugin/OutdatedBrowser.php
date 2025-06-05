@@ -1,20 +1,20 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class WDCX_Plugin_OutdatedBrowser
+class Icarus_Plugin_OutdatedBrowser
 {
     public static function config($form)
     {
-        WDCX_Plugin::basicConfig($form, 'OutdatedBrowser', WDCX_Plugin::ENABLE);
+        Icarus_Plugin::basicConfig($form, 'OutdatedBrowser', Icarus_Plugin::ENABLE);
     }
 
     public static function header()
     {
-        WDCX_Assets::cdn('css', 'outdated-browser', '1.1.5', 'outdatedbrowser.min.css');
+        Icarus_Assets::cdn('css', 'outdated-browser', '1.1.5', 'outdatedbrowser.min.css');
     }
 
     public static function footer()
     {
-        WDCX_Assets::cdn('js+defer', 'outdated-browser', '1.1.5', 'outdatedbrowser.min.js');
+        Icarus_Assets::cdn('js+defer', 'outdated-browser', '1.1.5', 'outdatedbrowser.min.js');
 ?>
 <div id="outdated"></div>
 <script>

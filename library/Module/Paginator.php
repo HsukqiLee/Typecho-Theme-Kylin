@@ -1,6 +1,6 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class WDCX_Module_Paginator
+class Icarus_Module_Paginator
 {
     public static function output($widget)
     {

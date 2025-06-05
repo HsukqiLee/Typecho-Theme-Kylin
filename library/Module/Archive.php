@@ -1,10 +1,10 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class WDCX_Module_Archive
+class Icarus_Module_Archive
 {
     public static function config($form)
     {
-        WDCX_Aside::basicConfig($form, 'Archive', WDCX_Aside::ENABLE, 'right', '1');
+        Icarus_Aside::basicConfig($form, 'Archive', Icarus_Aside::ENABLE, 'right', '1');
     }
 
     public static function output()
@@ -32,8 +32,9 @@ $tpl = <<<TPL
 TPL;
 Typecho_Widget::widget(
     'Widget_Contents_Post_Date', 
-    array(        'type' => 'month',
-        'format' => 'Y&\t\h\i\n\sp;年&\t\h\i\n\sp;n&\t\h\i\n\sp;月'
+    array(
+        'type' => 'month',
+        'format' => _IcT('archive.date_format')
     ))->parse($tpl);
 ?>        
         </ul>

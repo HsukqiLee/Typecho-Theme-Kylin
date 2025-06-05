@@ -1,6 +1,6 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class WDCX_Module_Single
+class Icarus_Module_Single
 {
     private $_post;
 
@@ -26,7 +26,7 @@ class WDCX_Module_Single
     private function getNext()
     {
         $content = Typecho_Db::get()->fetchRow($this->_post->select()->where('table.contents.created > ? AND table.contents.created < ?',
-            $this->_post->created, WDCX_Util::$options->time)
+            $this->_post->created, Icarus_Util::$options->time)
             ->where('table.contents.status = ?', 'publish')
             ->where('table.contents.type = ?', $this->_post->type)
             ->where("table.contents.password IS NULL OR table.contents.password = ''")
@@ -40,17 +40,17 @@ class WDCX_Module_Single
 
     private function hasThumbnail()
     {
-        return WDCX_Content::hasThumbnail($this->_post);
+        return Icarus_Content::hasThumbnail($this->_post);
     }
 
     private function getThumbnail()
     {
-        return WDCX_Content::getThumbnail($this->_post);
+        return Icarus_Content::getThumbnail($this->_post);
     }
 
     public static function output($post)
     {
-        return (new WDCX_Module_Single($post))->doOutput();
+        return (new Icarus_Module_Single($post))->doOutput();
     }
 
     private function printThumbnail($isContent)
@@ -120,7 +120,7 @@ class WDCX_Module_Single
         <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="<?php $this->_post->permalink(); ?>">阅读全文</a>
+                <a class="button is-size-7 is-light" href="<?php $this->_post->permalink(); ?>"><?php _IcTp('article.more'); ?></a>
                 </div>
             </div>
         </div>
@@ -155,7 +155,7 @@ class WDCX_Module_Single
 ?>
 <div class="card">
     <?php $this->printThumbnail(FALSE); ?>
-    <?php if (!!WDCX_Config::get('post_tiny_item', FALSE)): ?>
+    <?php if (!!Icarus_Config::get('post_tiny_item', FALSE)): ?>
     <div class="card-content article article-item article-item-tiny">
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             <a class="has-link-black-ter" href="<?php $this->_post->permalink(); ?>"><?php $this->_post->title(); ?></a>
@@ -180,7 +180,7 @@ class WDCX_Module_Single
             <a class="has-link-black-ter" href="<?php $this->_post->permalink(); ?>"><?php $this->_post->title(); ?></a>
         </h1>
         <div class="content">
-            <?php echo WDCX_Content::getExcerpt($this->_post); ?>
+            <?php echo Icarus_Content::getExcerpt($this->_post); ?>
         </div>
         <?php $this->printReadMore(); ?>
     </div>
@@ -200,15 +200,15 @@ class WDCX_Module_Single
         </h1>
         <div class="content">
         <?php 
-            echo WDCX_Content::getContent($this->_post); 
+            echo Icarus_Content::getContent($this->_post); 
         ?>
         </div>
         <?php $this->printTags(); ?>
     </div>
 </div>
 <?php  
-        WDCX_Module::show('Donate');
-        WDCX_Module::show('Comments', $this->_post);
+        Icarus_Module::show('Donate');
+        Icarus_Module::show('Comments', $this->_post);
     }
 
     public function doOutputPost()
@@ -228,7 +228,7 @@ class WDCX_Module_Single
         </h1>
         <div class="content">
         <?php 
-            echo WDCX_Content::getContent($this->_post); 
+            echo Icarus_Content::getContent($this->_post); 
         ?>
         </div>
         <?php 
@@ -237,7 +237,7 @@ class WDCX_Module_Single
     </div>
 </div>
 <?php  
-WDCX_Module::show('Donate');
+Icarus_Module::show('Donate');
 
 if ($this->_post->is('post')):
     $prevPost = $this->getPrev();
@@ -267,6 +267,6 @@ if ($this->_post->is('post')):
 <?php
     endif;
 endif; 
-WDCX_Module::show('Comments', $this->_post);
+Icarus_Module::show('Comments', $this->_post);
     }
 }

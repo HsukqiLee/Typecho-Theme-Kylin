@@ -21,9 +21,10 @@ function printArchiveBreadcrumb($text, $url = NULL, $isCurrent = FALSE)
 }
 switch ($this->getArchiveType())
 {
-    case 'category':        printArchiveBreadcrumb(
-            '分类', 
-            WDCX_Util::urlFor('page', array('slug' => 'categories'))
+    case 'category':
+        printArchiveBreadcrumb(
+            _IcT('general.categories'), 
+            Icarus_Util::urlFor('page', array('slug' => 'categories'))
         );
         if ($curSlug = $this->getArchiveSlug())
         {
@@ -52,24 +53,25 @@ switch ($this->getArchiveType())
             }
         }
         break;
-    case 'search':        printArchiveBreadcrumb('搜索');
+    case 'search':
+        printArchiveBreadcrumb(_IcT('general.search'));
         printArchiveBreadcrumb($this->getArchiveSlug(), NULL, TRUE);
         break;
     case 'tag':
         printArchiveBreadcrumb(
-            '标签', 
-            WDCX_Util::urlFor('page', array('slug' => 'tags'))
+            _IcT('general.tags'), 
+            Icarus_Util::urlFor('page', array('slug' => 'tags'))
         );
         printArchiveBreadcrumb($this->getArchiveSlug(), NULL, TRUE);
         break;
     case 'author':
-        printArchiveBreadcrumb('作者');
+        printArchiveBreadcrumb(_IcT('general.author'));
         printArchiveBreadcrumb($this->getArchiveTitle(), NULL, TRUE);
         break;
     case 'date':
         printArchiveBreadcrumb(
             _IcT('general.archives'), 
-            WDCX_Util::urlFor('page', array('slug' => 'archives'))
+            Icarus_Util::urlFor('page', array('slug' => 'archives'))
         );
         extract($this->getPageRow()); // $year, $month, $day
         switch ($this->getArchiveSlug())
@@ -78,12 +80,12 @@ switch ($this->getArchiveType())
                 printArchiveBreadcrumb(_t('%d年', $year), NULL, TRUE);
                 break;
             case 'month':
-                printArchiveBreadcrumb(_t('%d年', $year), WDCX_Util::urlFor('archive_year', array('year'=>$year)));
+                printArchiveBreadcrumb(_t('%d年', $year), Icarus_Util::urlFor('archive_year', array('year'=>$year)));
                 printArchiveBreadcrumb(_t('%d月', $month), NULL, TRUE);
                 break;
             case 'day':
-                printArchiveBreadcrumb(_t('%d年', $year), WDCX_Util::urlFor('archive_year', array('year' => $year)));
-                printArchiveBreadcrumb(_t('%d月', $month), WDCX_Util::urlFor('archive_month', array('year' => $year, 'month' => $month)));
+                printArchiveBreadcrumb(_t('%d年', $year), Icarus_Util::urlFor('archive_year', array('year' => $year)));
+                printArchiveBreadcrumb(_t('%d月', $month), Icarus_Util::urlFor('archive_month', array('year' => $year, 'month' => $month)));
                 printArchiveBreadcrumb(_t('%d日', $day), NULL, TRUE);
                 break;
         }
@@ -95,8 +97,8 @@ switch ($this->getArchiveType())
     </div>
 </div>
 <?php
-WDCX_Module::load('Single');
-$post = new WDCX_Module_Single($this);
+Icarus_Module::load('Single');
+$post = new Icarus_Module_Single($this);
 if ($this->have()) {
     while ($this->next()) 
     {
@@ -123,10 +125,10 @@ if ($this->have()) {
     switch ($this->getArchiveType())
     {
         case 'category':
-            $jumpTarget = WDCX_Util::urlFor('page', array('slug' => 'categories'));
+            $jumpTarget = Icarus_Util::urlFor('page', array('slug' => 'categories'));
             break;
         case 'date':
-            $jumpTarget = WDCX_Util::urlFor('page', array('slug' => 'archives'));
+            $jumpTarget = Icarus_Util::urlFor('page', array('slug' => 'archives'));
             break;
         case 'search':
             $jumpTarget = '#';
@@ -134,7 +136,7 @@ if ($this->have()) {
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     (function ($) {
-        $('#WDCX-jump-guide').click(function () {
+        $('#icarus-jump-guide').click(function () {
             $('.searchbox').toggleClass('show');
         });
     })(jQuery);
@@ -143,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <?php
             break;
         case 'tag':
-            $jumpTarget = WDCX_Util::urlFor('page', array('slug' => 'tags'));
+            $jumpTarget = Icarus_Util::urlFor('page', array('slug' => 'tags'));
             break;
     }
 ?>
@@ -155,18 +157,18 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="card-footer">
         <?php if (!empty($jump)): ?>
         <p class="card-footer-item">
-            <span><a href="<?php echo $jumpTarget; ?>" id="WDCX-jump-guide"><?php echo $jump; ?></a></span>
+            <span><a href="<?php echo $jumpTarget; ?>" id="icarus-jump-guide"><?php echo $jump; ?></a></span>
         </p>
         <?php endif; ?>
         <p class="card-footer-item">
-            <span><a href="<?php WDCX_Util::$options->index(); ?>">回到首页</a></span>
+            <span><a href="<?php Icarus_Util::$options->index(); ?>">回到首页</a></span>
         </p>
     </div>
 </div>
 <?php
 }
 
-WDCX_Module::show('Paginator', $this);
+Icarus_Module::show('Paginator', $this);
 
 $this->need('component/footer.php');
 

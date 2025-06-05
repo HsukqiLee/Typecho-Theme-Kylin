@@ -1,17 +1,17 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
-class WDCX_Module_Tag
+class Icarus_Module_Tag
 {
     public static function config($form)
     {
-        WDCX_Aside::basicConfig($form, 'Tag', WDCX_Aside::ENABLE, 'right', '2');
+        Icarus_Aside::basicConfig($form, 'Tag', Icarus_Aside::ENABLE, 'right', '2');
 
         $form->packInput('Tag/limit', '20', 'w-20');
     }
 
     private static function getLimit()
     {
-        $limit = intval(WDCX_Config::get('tag_limit', 20));
+        $limit = intval(Icarus_Config::get('tag_limit', 20));
         if ($limit < 0)
             $limit = 20;
         return $limit;
@@ -27,12 +27,13 @@ class WDCX_Module_Tag
 <div class="card widget">
     <div class="card-content">
         <div class="menu">
-        <?php if ($showAll): ?>            <h1 class="is-size-4 has-mb-6">
-                标签
+        <?php if ($showAll): ?>
+            <h1 class="is-size-4 has-mb-6">
+                <?php _IcTp('general.tags'); ?>
             </h1>
         <?php else: ?>
             <h3 class="menu-label">
-                标签
+                <?php _IcTp('general.tags'); ?>
             </h3>
         <?php endif; ?>
             <div class="field is-grouped is-grouped-multiline">
