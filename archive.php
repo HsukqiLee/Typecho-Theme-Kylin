@@ -1,5 +1,6 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 
 $this->need('component/header.php');
 ?>
@@ -39,12 +40,12 @@ switch ($this->getArchiveType())
                     break;
                 }
             }
-            if ($categoryFound) 
+            if ($categoryFound === true) 
             {
                 $curCategory = $categories->getCategory($categories->mid);
                 $categoriesTree = $categories->getAllParents($categories->mid);
         
-                if ($categoriesTree) {
+                if (Icarus_Util::isEmpty($categoriesTree) === false) {
                     foreach ($categoriesTree as $category) {
                         printArchiveBreadcrumb($category['name'], $category['permalink']);
                     }
@@ -109,7 +110,6 @@ if ($this->have()) {
     {
         case 'category':
         case 'date':
-        case 'author':
         case 'search':
         case 'tag':
             $title = _IcT('empty.' . $this->getArchiveType() . '.title');
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
         </p>
         <?php endif; ?>
         <p class="card-footer-item">
-            <span><a href="<?php Icarus_Util::$options->index(); ?>">回到首页</a></span>
+            <span><a href="<?php Icarus_Util::$options->index(); ?>"><?php _IcTp('404.back'); ?></a></span>
         </p>
     </div>
 </div>

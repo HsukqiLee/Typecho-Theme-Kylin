@@ -1,5 +1,6 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 class Icarus_Module_Archive
 {
     public static function config($form)
@@ -17,7 +18,7 @@ class Icarus_Module_Archive
             <?php _IcTp('general.archives'); ?>
         </h3>
         <ul class="menu-list">
-<?php 
+<?php
 $tpl = <<<TPL
 <li>
     <a class="level is-marginless" href="{permalink}">

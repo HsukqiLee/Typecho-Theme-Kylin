@@ -1,5 +1,6 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 class Icarus_Plugin_OutdatedBrowser
 {
     public static function config($form)

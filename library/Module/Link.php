@@ -1,5 +1,6 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 class Icarus_Module_Link
 {
     public static function config($form)
@@ -22,7 +23,7 @@ class Icarus_Module_Link
     public static function output()
     {
         $links = self::getLinks();
-        if (empty($links))
+        if (Icarus_Util::isEmpty($links) === true)
             return;
 
 ?>
@@ -39,7 +40,7 @@ class Icarus_Module_Link
                     <span class="level-left">
                         <span class="level-item"><?php echo $linkItem[0]; ?></span>
                     </span>
-                    <?php if (!empty($domain)): ?>
+                    <?php if (Icarus_Util::isEmpty($domain) === false): ?>
                     <span class="level-right">
                         <span class="level-item tag"><?php echo $domain; ?></span>
                     </span>

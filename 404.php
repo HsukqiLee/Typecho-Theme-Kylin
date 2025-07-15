@@ -1,5 +1,6 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 
 Icarus_Aside::$asideLeft->clear();
 Icarus_Aside::$asideRight->clear();
@@ -11,7 +12,8 @@ $this->need('component/header.php');
 <div class="card">
     <div class="card-content">
         <p class="title has-text-weight-normal"><?php _IcTp('404.title'); ?></p>
-        <p class="subtitle"><?php _IcTp('404.desc'); ?></p>
+        <img class="lazyload" src="<?php echo Icarus_Assets::getUrlForAssets('/img/404.svg'); ?>">
+        <?php _IcTp('404.desc'); ?>
     </div>
     <div class="card-footer">
         <?php if (!empty($jump)): ?>
@@ -20,7 +22,7 @@ $this->need('component/header.php');
         </p>
         <?php endif; ?>
         <p class="card-footer-item">
-            <span><a href="/">回到首页</a></span>
+            <span><a href="/"><?php _IcTp('404.back'); ?></a></span>
         </p>
     </div>
 </div>

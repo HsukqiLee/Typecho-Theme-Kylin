@@ -1,5 +1,6 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 class Icarus_Module_RecentPost
 {
     public static function config($form)
@@ -33,10 +34,10 @@ class Icarus_Module_RecentPost
         </h3>
 <?php while ($posts->next()): ?>
 <div class="media">
-    <?php if ($thumbnailEnabled): ?>
+    <?php if ($thumbnailEnabled && Icarus_Content::hasThumbnail($posts)): ?>
     <a href="<?php $posts->permalink(); ?>" class="media-left">
         <p class="image is-64x64">
-            <img class="thumbnail" src="<?php echo Icarus_Content::getThumbnail($posts); ?>" alt="<?php $posts->title(); ?>">
+            <img class="thumbnail lazyload" src="<?php echo Icarus_Assets::getUrlForAssets('/img/loading.gif'); ?>" data-original="<?php echo Icarus_Content::getThumbnail($posts); ?>" alt="<?php $posts->title(); ?>">
         </p>
     </a>
     <?php endif; ?>
@@ -51,7 +52,7 @@ class Icarus_Module_RecentPost
             $directory = Typecho_Widget::widget('Widget_Metas_Category_List')->getAllParents($category['mid']);
             $directory[] = $category;
     
-            if ($directory) {
+            if (Icarus_Util::isEmpty($directory) === false) {
                 $result = array();
     
                 foreach ($directory as $category) {

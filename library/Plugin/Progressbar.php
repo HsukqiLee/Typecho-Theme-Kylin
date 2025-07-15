@@ -1,5 +1,6 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 class Icarus_Plugin_Progressbar
 {
     public static function config($form)
@@ -9,7 +10,6 @@ class Icarus_Plugin_Progressbar
 
     public static function header()
     {
-        Icarus_Assets::printThemeCss('progressbar.css');
         Icarus_Assets::cdn('js', 'pace', '1.0.2', 'pace.min.js');
     }
 }

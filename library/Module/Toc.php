@@ -1,5 +1,6 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 class Icarus_Module_Toc
 {
     private static $_toc;
@@ -34,7 +35,7 @@ class Icarus_Module_Toc
         if (!isset(self::$_toc[$index]))
             return;
 
-        if (empty(self::$_toc[$index]['children']))
+        if (Icarus_Util::isEmpty(self::$_toc[$index]['children']) === true)
             return;
 ?>
 <ul class="menu-list">
@@ -45,8 +46,12 @@ $item = self::$_toc[$k];
 <li>
 <?php if (isset($item['id'])): ?>
     <a class="is-flex" href="#<?php echo $item['id']; ?>">
-        <span class="has-mr-6"><?php echo $item['index']; ?>.</span>
-        <span><?php echo $item['title']; ?></span>
+        <span>
+        <?php 
+            echo str_replace(', ','. ',$item['title']);
+            //Replace subtitle like '3.1,' with '3.1.'
+        ?>
+        </span>
     </a>
 <?php 
 endif;

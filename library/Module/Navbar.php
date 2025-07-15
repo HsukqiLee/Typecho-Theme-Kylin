@@ -1,5 +1,6 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 class Icarus_Module_Navbar
 {
     public static function config($form)
@@ -14,7 +15,9 @@ class Icarus_Module_Navbar
                 Icarus_Util::urlFor('page', array('slug' => 'categories'))
             )
         );
-        $form->packTextarea('Navbar/icons', "Download on GitHub,fab fa-github,http://github.com/ppoffice/hexo-theme-icarus");
+        $form->packTextarea('Navbar/icons', "Download on GitHub,fab fa-github,http://github.com/HsukqiLee/Typecho-Theme-Kylin");
+        
+        $form->packRadio('Navbar/top', array('0', '1'), '0');
     }
 
     private static function getMenu()
@@ -40,7 +43,7 @@ class Icarus_Module_Navbar
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="<?php Icarus_Util::$options->index(); ?>">
             <?php if (Icarus_Config::tryGet('logo_img', $logo_img)): ?>
-                <img src="<?php echo Icarus_Assets::getUrlForAssets($logo_img); ?>" alt="<?php Icarus_Util::$options->title(); ?>" height="28">
+                <img src="<?php echo Icarus_Assets::getUrlForAssets($logo_img); ?>" alt="<?php Icarus_Util::$options->title(); ?>">
             <?php else: ?>
                 <?php echo Icarus_Config::get('logo_text', Icarus_Util::$options->title); ?>
             <?php endif; ?>
@@ -59,7 +62,7 @@ class Icarus_Module_Navbar
             <?php if (Icarus_Config::has('navbar_icons')): $icons = self::getIcons(); ?>
                 <?php foreach ($icons as $iconItem): ?>
                 <a class="navbar-item" target="_blank" title="<?php echo $iconItem[0]; ?>" href="<?php echo $iconItem[2]; ?>">
-                    <?php if (empty($iconItem[1])): ?>
+                    <?php if (Icarus_Util::isEmpty($iconItem[1]) === true): ?>
                     <?php echo $iconItem[0]; ?>
                     <?php else: ?>
                     <i class="<?php echo $iconItem[1]; ?>"></i>
@@ -67,13 +70,18 @@ class Icarus_Module_Navbar
                 </a>
                 <?php endforeach; ?>
             <?php endif; ?>
-            <?php if (Icarus_Module::enabled('Toc') && Icarus_Page::is('single')): ?>
+            <?php if (Icarus_Module::enabled('Toc') && Icarus_Page::is('post')): ?>
                 <a class="navbar-item is-hidden-tablet catalogue" title="<?php _IcTp('general.catalog'); ?>" href="javascript:;">
                     <i class="fas fa-list-ul"></i>
                 </a>
             <?php endif; ?>
+            <?php if (Icarus_Module::enabled('DarkMode')): ?>
+                <a class="navbar-item dark-adjust" href="javascript:;" title="<?php _IcTp('search.title'); ?>">
+                    <i class="fas fa-adjust" id="darkModeIcon"></i>
+                </a>
+            <?php endif; ?>
             <?php if (Icarus_Module::enabled('Search')): ?>
-                <a class="navbar-item search" title="<?php _IcTp('search.title'); ?>" href="javascript:;">
+                <a class="navbar-item search search-form-input" href="javascript:;" title="<?php _IcTp('search.title'); ?>">
                     <i class="fas fa-search"></i>
                 </a>
             <?php endif; ?>

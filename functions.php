@@ -1,5 +1,6 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 define('__ICARUS_ROOT__', dirname(__FILE__) . '/');
 define('__ICARUS_VERSION__', '1.1.4');
 define('__ICARUS_CFG_VERSION__', '3');
@@ -46,7 +47,6 @@ function themeConfig($form)
     require __ICARUS_ROOT__ . 'library/Config.php';
     require __ICARUS_ROOT__ . 'library/Content.php';
     require __ICARUS_ROOT__ . 'library/Ajax.php';
-    require __ICARUS_ROOT__ . 'library/Backup.php';
 
     Icarus_Util::init(NULL);
     Icarus_I18n::init();

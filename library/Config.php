@@ -1,5 +1,6 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 require __ICARUS_ROOT__ . 'library/FormHelper.php';
 
 class Icarus_Config
@@ -30,7 +31,7 @@ class Icarus_Config
 
         $form->packInput('General/install_time', date('Y-m-d', Icarus_Util::getSiteInstallTime()), 'w-20');
         
-        $form->_form->addInput(new Icarus_Form_ConfigBackup());
+        //$form->_form->addInput(new Icarus_Form_ConfigBackup());
     }
 
     public function __construct($form)
@@ -76,7 +77,7 @@ class Icarus_Config
 
     public function html($html)
     {
-        $layout = new Typecho_Widget_Helper_Layout(NULL);
+        $layout = new Typecho_Widget_Helper_Layout();
         $layout->html($html);
         $this->_form->addItem($layout);
     }

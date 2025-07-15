@@ -1,5 +1,6 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 class Icarus_Module_Category
 {
     public static function config($form)
@@ -13,7 +14,7 @@ class Icarus_Module_Category
 <div class="card widget">
     <div class="card-content">
         <div class="menu">
-        <?php if ($showAll): ?>
+        <?php if ($showAll === true): ?>
             <h1 class="is-size-4 has-mb-6">
                 <?php _IcTp('general.categories'); ?>
             </h1>

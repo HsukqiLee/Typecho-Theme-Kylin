@@ -1,11 +1,12 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 class Icarus_Module_Paginator
 {
     public static function output($widget)
     {
         ob_start();
-        $widget->pageNav('&laquo;', '&raquo;', 3, '...', array(
+        $widget->pageNav('&laquo;', '&raquo;', 1, '...', array(
             'wrapTag' => 'ul',
             'wrapClass' => 'pagination-list',
             'currentClass' => 'is-current',
@@ -27,7 +28,7 @@ class Icarus_Module_Paginator
             ),
             $content
         );
-        if (empty($content))
+        if (Icarus_Util::isEmpty($content) === true)
         {
             return;
         }   

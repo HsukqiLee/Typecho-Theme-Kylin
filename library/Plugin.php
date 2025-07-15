@@ -1,5 +1,6 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 class Icarus_Plugin
 {
     const ENABLE = '1';
@@ -14,15 +15,18 @@ class Icarus_Plugin
         'Gallery',
         'Mathjax',
         'OutdatedBrowser',
-        'Progressbar'
+        'Progressbar',
+        'Tabs',
+        'Copyleft',
+        'SweetAlert',
     );
     private static $_pluginLoaded = array();
 
     public static function load($name)
     {
-        if (!in_array($name, self::$_pluginList))
+        if (in_array($name, self::$_pluginList) === false)
             return FALSE;
-        if (!in_array($name, self::$_pluginLoaded)) {
+        if (in_array($name, self::$_pluginLoaded) === false) {
             require __ICARUS_ROOT__ . 'library/Plugin/' . $name . '.php';
             self::$_pluginLoaded[] = $name;
         }
@@ -31,7 +35,7 @@ class Icarus_Plugin
 
     public static function header($pluginName)
     {
-        if (!self::load($pluginName))
+        if (self::load($pluginName) === false)
             return;
         
         $pluginClass = 'Icarus_Plugin_' . $pluginName;
@@ -39,7 +43,7 @@ class Icarus_Plugin
         $params = func_get_args();
         array_shift($params);
         
-        if (method_exists($pluginClass, 'header'))
+        if (method_exists($pluginClass, 'header') === true)
         {
             call_user_func_array(array($pluginClass, 'header'), $params);
         }
@@ -47,7 +51,7 @@ class Icarus_Plugin
 
     public static function footer($pluginName)
     {
-        if (!self::load($pluginName))
+        if (self::load($pluginName) === false)
             return;
         
         $pluginClass = 'Icarus_Plugin_' . $pluginName;

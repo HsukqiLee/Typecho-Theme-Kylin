@@ -1,14 +1,15 @@
 <?php
 /**
- * Port of Ruipeng Zhang's Hexo theme Icarus to Typecho.
+ * A simple, delicate and modern theme, changed from Icarus theme of KeNorizon.
  * 
- * @package Icarus
- * @author Ruipeng Zhang & KeNorizon
- * @version 1.1.4
- * @link https://github.com/KeNorizon/typecho-theme-icarus
+ * @package Kylin
+ * @author HsukqiLee
+ * @version 1.0.0
+ * @link https://github.com/HsukqiLee/typecho-theme-kylin
  */
 
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 
 $this->need('component/header.php');
 

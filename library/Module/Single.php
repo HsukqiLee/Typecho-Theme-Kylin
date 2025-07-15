@@ -1,5 +1,6 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 class Icarus_Module_Single
 {
     private $_post;
@@ -17,7 +18,7 @@ class Icarus_Module_Single
             ->where("table.contents.password IS NULL OR table.contents.password = ''")
             ->order('table.contents.created', Typecho_Db::SORT_DESC)
             ->limit(1));
-        if ($content) 
+        if ($content !== null) 
             return $this->_post->filter($content);
         else
             return NULL;
@@ -32,7 +33,7 @@ class Icarus_Module_Single
             ->where("table.contents.password IS NULL OR table.contents.password = ''")
             ->order('table.contents.created', Typecho_Db::SORT_ASC)
             ->limit(1));
-        if ($content) 
+        if ($content !== null) 
             return $this->_post->filter($content);
         else
             return NULL;
@@ -59,7 +60,7 @@ class Icarus_Module_Single
 ?>
     <div class="card-image">
         <?php echo !$isContent ? ('<a href="' . $this->_post->permalink . '"') : '<span '; ?> class="image is-7by1">
-            <img class="thumbnail" src="<?php echo $this->getThumbnail(); ?>" alt="<?php $this->_post->title(); ?>">
+            <img class="thumbnail lazyload" src="<?php echo Icarus_Assets::getUrlForAssets('/img/default.png'); ?>" data-original="<?php echo $this->getThumbnail(); ?>" alt="<?php $this->_post->title(); ?>">
         <?php echo !$isContent ? '</a>' : '</span>' ?>
     </div>
 <?php 
@@ -76,7 +77,7 @@ class Icarus_Module_Single
         $directory = Typecho_Widget::widget('Widget_Metas_Category_List')->getAllParents($category['mid']);
         $directory[] = $category;
 
-        if ($directory) {
+        if (Icarus_Util::isEmpty($directory) === false) {
             $result = array();
 
             foreach ($directory as $category) {
@@ -97,17 +98,18 @@ class Icarus_Module_Single
         if (!$this->_post->tags)
             return;
 ?>
-        <div class="level is-size-7 is-uppercase">
+        <div class="level is-size-7">
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <?php $result = array();
+                    <span><?php $result = array();
                     foreach ($this->_post->tags as $tag) {
                         $result[] ='<a class="has-link-grey" href="' . $tag['permalink'] . '">'
                         . $tag['name'] . '</a>';
                     }
-                    echo implode(',&nbsp;', $result);
+                    echo implode('&nbsp;&nbsp;', $result);
                     ?>
+                    </span>
                 </div>
             </div>
         </div>
@@ -192,25 +194,69 @@ class Icarus_Module_Single
     public function doOutputPage()
     {
 ?>
-<div class="card">
+<div class="card" data-no-instant>
     <?php $this->printThumbnail(TRUE); ?>
     <div class="card-content article article-single">
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             <?php $this->_post->title(); ?>
         </h1>
         <div class="content">
-        <?php 
-            echo Icarus_Content::getContent($this->_post); 
-        ?>
+<?php 
+global $_SERVER;
+if (isset($_SERVER['HTTP_CF_IPCOUNTRY']) && in_array($_SERVER['HTTP_CF_IPCOUNTRY'], explode(',', $this->_post->fields->blocked_countries))) {
+    $ray=explode('-', $_SERVER['HTTP_CF_RAY']?$_SERVER['HTTP_CF_RAY']:'UNKNOWM-UNKNOWN');
+?>
+<style>
+.blocked-box {
+    margin: 30px 0 30px 0;
+    padding: 36px 0 48px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 .5em 1em -0.125em rgba(10,10,10,.1),0 0px 0 1px rgba(10,10,10,.02);
+    color: #4a4a4a;
+}
+.blocked-text {
+    padding: 10px 10px 15px 10px;
+}
+.blocked-button {
+    margin: 10px 10px 15px 10px;
+}
+</style>
+<div class="blocked-box">
+    <figure class="image is-128x128">
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><polygon style="fill:#FFCCC3;" points="481.157,466.763 512,466.763 512,137.767 460.594,76.08 "></polygon><polygon style="fill:#FFE6E1;" points="0,137.767 0,466.763 480.129,466.763 480.129,76.08 "></polygon><polygon style="fill:#F85B3F;" points="481.157,45.237 460.594,91.502 481.157,137.767 512,137.767 512,45.237 "></polygon><polygon style="fill:#FF7F67;" points="419.47,45.237 398.908,91.502 419.47,137.767 481.157,137.767 481.157,45.237 "></polygon><rect x="1.028" y="45.237" style="fill:#B6B8B5;" width="418.442" height="92.53"></rect><rect x="31.871" y="76.08" style="fill:#FFFFFF;" width="356.755" height="30.843"></rect><path style="fill:#F85B3F;" d="M256.514,193.285l-20.562,108.98l20.562,108.98c60.091,0,108.98-48.889,108.98-108.98 C365.494,242.173,316.605,193.285,256.514,193.285z"></path><path style="fill:#FF7F67;" d="M147.534,302.265c0,60.091,48.888,108.98,108.98,108.98v-217.96 C196.423,193.285,147.534,242.173,147.534,302.265z"></path><g><path style="fill:#FFE6E1;" d="M299.749,237.22c-12.391-8.263-27.257-13.092-43.235-13.092c-43.084,0-78.137,35.052-78.137,78.137 c0,15.978,4.829,30.844,13.092,43.235L299.749,237.22z"></path><path style="fill:#FFE6E1;" d="M213.279,367.31c12.391,8.263,27.257,13.092,43.235,13.092c43.084,0,78.137-35.052,78.137-78.137 c0-15.978-4.829-30.844-13.092-43.235L213.279,367.31z"></path></g></svg>
+    </figure>
+    <h2 class="title has-text-weight-bold blocked-text"><?php _IcTp('fields.blocked_countries.text.title'); ?></h2>
+    <p class="subtitle blocked-text"><?php _IcTp('fields.blocked_countries.text.subtitle'); ?></p>
+    <p class="menu-label">
+        <?php echo _IcT('fields.blocked_countries.text.ip').$_SERVER['HTTP_X_FORWARDED_FOR']; ?><br>
+        <?php echo _IcT('fields.blocked_countries.text.ray').$ray[0]; ?><br>
+        <?php echo _IcT('fields.blocked_countries.text.loc').$_SERVER['HTTP_CF_IPCOUNTRY']; ?><br>
+        <?php echo _IcT('fields.blocked_countries.text.colo').$ray[1]; ?>
+    </p>
+    <div class="buttons">
+        <button class="button is-light blocked-button" onclick="window.history.back()"><?php _IcTp('fields.blocked_countries.text.back'); ?></button>
+        <button class="button is-link blocked-button" onclick="window.location.reload()"><?php _IcTp('fields.blocked_countries.text.reload'); ?></button>
+    </div>
+</div>
+<?php  
+}
+else {
+    echo Icarus_Content::getContent($this->_post);
+}
+
+?>
         </div>
         <?php $this->printTags(); ?>
     </div>
 </div>
 <?php  
-        Icarus_Module::show('Donate');
         Icarus_Module::show('Comments', $this->_post);
     }
-
     public function doOutputPost()
     {
 ?>
@@ -227,27 +273,136 @@ class Icarus_Module_Single
             <?php $this->_post->title(); ?>
         </h1>
         <div class="content">
-        <?php 
-            echo Icarus_Content::getContent($this->_post); 
+        <?php
+            if(strpos($this->_post->fields->language,'简体中文')!==FALSE) {
+                $translate=explode(',',str_replace('.com/archives','.com/tw/archives',$this->_post->fields->translate).','.$this->_post->fields->translate);
+                $language=explode(',','正體中文,'.$this->_post->fields->language);
+            }
+            else {
+                $translate=explode(',',str_replace(['.com/archives','.com/en/archives'],['.com/tw/archives','.com/tw/archives'],$this->_post->permalink).','.$this->_post->fields->translate);
+                $language=explode(',','正體中文,'.$this->_post->fields->language);
+            }
+            if (Icarus_Util::isEmpty($this->_post->fields->translate) === false && Icarus_Util::isEmpty($this->_post->fields->language) === false)
+            {
         ?>
+            <article class="message message-immersive is-primary" data-no-instant>
+                <div class="message-body">
+                    <i class="fas fa-globe-asia mr-2"></i>
+                    <?php
+                        _IcTp('fields.language.prefix');
+                        for($i=0;$i<count($translate);$i++)
+                        {
+                    ?>
+                    <a href="<?php echo $translate[$i]; ?>"><?php echo $language[$i]; ?></a>
+                    &nbsp;
+                    <?php
+                        }
+                    ?>
+                </div>
+            </article>
+        <?php
+            
+            }
+            global $_SERVER;
+            if (isset($_SERVER['HTTP_CF_IPCOUNTRY']) && in_array($_SERVER['HTTP_CF_IPCOUNTRY'], explode(',', $this->_post->fields->blocked_countries))) {
+                $ray=explode('-', $_SERVER['HTTP_CF_RAY']?$_SERVER['HTTP_CF_RAY']:'UNKNOWM-UNKNOWN');
+?>
+<style>
+.blocked-box {
+    margin: 30px 0 30px 0;
+    padding: 36px 0 48px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 .5em 1em -0.125em rgba(10,10,10,.1),0 0px 0 1px rgba(10,10,10,.02);
+    color: #4a4a4a;
+}
+.blocked-text {
+    padding: 10px 10px 15px 10px;
+}
+.blocked-button {
+    margin: 10px 10px 15px 10px;
+}
+</style>
+<div class="blocked-box">
+    <figure class="image is-128x128">
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><polygon style="fill:#FFCCC3;" points="481.157,466.763 512,466.763 512,137.767 460.594,76.08 "></polygon><polygon style="fill:#FFE6E1;" points="0,137.767 0,466.763 480.129,466.763 480.129,76.08 "></polygon><polygon style="fill:#F85B3F;" points="481.157,45.237 460.594,91.502 481.157,137.767 512,137.767 512,45.237 "></polygon><polygon style="fill:#FF7F67;" points="419.47,45.237 398.908,91.502 419.47,137.767 481.157,137.767 481.157,45.237 "></polygon><rect x="1.028" y="45.237" style="fill:#B6B8B5;" width="418.442" height="92.53"></rect><rect x="31.871" y="76.08" style="fill:#FFFFFF;" width="356.755" height="30.843"></rect><path style="fill:#F85B3F;" d="M256.514,193.285l-20.562,108.98l20.562,108.98c60.091,0,108.98-48.889,108.98-108.98 C365.494,242.173,316.605,193.285,256.514,193.285z"></path><path style="fill:#FF7F67;" d="M147.534,302.265c0,60.091,48.888,108.98,108.98,108.98v-217.96 C196.423,193.285,147.534,242.173,147.534,302.265z"></path><g><path style="fill:#FFE6E1;" d="M299.749,237.22c-12.391-8.263-27.257-13.092-43.235-13.092c-43.084,0-78.137,35.052-78.137,78.137 c0,15.978,4.829,30.844,13.092,43.235L299.749,237.22z"></path><path style="fill:#FFE6E1;" d="M213.279,367.31c12.391,8.263,27.257,13.092,43.235,13.092c43.084,0,78.137-35.052,78.137-78.137 c0-15.978-4.829-30.844-13.092-43.235L213.279,367.31z"></path></g></svg>
+    </figure>
+    <h2 class="title has-text-weight-bold blocked-text"><?php _IcTp('fields.blocked_countries.text.title'); ?></h2>
+    <p class="subtitle blocked-text"><?php _IcTp('fields.blocked_countries.text.subtitle'); ?></p>
+    <p class="menu-label">
+        <?php echo _IcT('fields.blocked_countries.text.ip').$_SERVER['HTTP_X_FORWARDED_FOR']; ?><br>
+        <?php echo _IcT('fields.blocked_countries.text.ray').$ray[0]; ?><br>
+        <?php echo _IcT('fields.blocked_countries.text.loc').$_SERVER['HTTP_CF_IPCOUNTRY']; ?><br>
+        <?php echo _IcT('fields.blocked_countries.text.colo').$ray[1]; ?>
+    </p>
+    <div class="buttons">
+        <button class="button is-light blocked-button" onclick="window.history.back()"><?php _IcTp('fields.blocked_countries.text.back'); ?></button>
+        <button class="button is-link blocked-button" onclick="window.location.reload()"><?php _IcTp('fields.blocked_countries.text.reload'); ?></button>
+    </div>
+</div>
+<?php  
+            }
+            else {
+                echo Icarus_Content::getContent($this->_post);
+            }
+
+            if(!!Icarus_Config::get('post_license', FALSE)) :
+        ?>
+            <div class="article-licensing box">
+                <div class="licensing-title"><p><?php $this->_post->title(); ?></p><p><a href="<?php $this->_post->permalink(); ?>"><?php $this->_post->permalink(); ?></a></p></div>
+                <div class="licensing-meta level is-mobile">
+                    <div class="level-left">
+                        <div class="level-item is-narrow">
+                            <div>
+                                <h6><?php _IcTp('setting.post.license.author'); ?></h6>
+                                <a href="<?php $this->_post->author->url(); ?>"><?php $this->_post->author(); ?></a>
+                            </div>
+                        </div>
+                        <div class="level-item is-narrow">
+                            <div>
+                                <h6><?php _IcTp('setting.post.license.date'); ?></h6>
+                                <p><?php $this->_post->date(); ?></p>
+                            </div>
+                        </div>
+                        <div class="level-item is-narrow">
+                            <div>
+                                <h6><?php _IcTp('setting.post.license.modified'); ?></h6>
+                                <p><?php echo date('Y-m-d', $this->_post->modified); ?></p>
+                            </div>
+                        </div>
+                        <div class="level-item is-narrow">
+                            <div>
+                                <h6><?php _IcTp('setting.post.license.under'); ?></h6>
+                                <p><?php echo Icarus_Config::get('post_license_extend', ''); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
         </div>
-        <?php 
+        <?php
             $this->printTags();    
         ?>
     </div>
 </div>
 <?php  
-Icarus_Module::show('Donate');
+if (!in_array($_SERVER['HTTP_CF_IPCOUNTRY'], explode(',', $this->_post->fields->blocked_countries))) Icarus_Module::show('Donate');
 
 if ($this->_post->is('post')):
     $prevPost = $this->getPrev();
     $nextPost = $this->getNext();
     if ($prevPost || $nextPost): 
 ?>
-<div class="card card-transparent">
+<div class="card">
+    <div class="card-content">
     <div class="level post-navigation is-flex-wrap is-mobile">
         <div class="level-start">
-        <?php if ($prevPost): ?>
+        <?php if ($prevPost !== null): ?>
             <a class="level level-item has-link-grey article-nav-prev" href="<?php echo $prevPost['permalink']; ?>">
                 <i class="level-item fas fa-chevron-left"></i>
                 <span class="level-item"><?php echo $prevPost['title']; ?></span>
@@ -255,18 +410,18 @@ if ($this->_post->is('post')):
         <?php endif;?> 
         </div>
         <div class="level-end">
-        <?php if ($nextPost): ?>
+        <?php if ($nextPost !== null): ?>
             <a class="level level-item has-link-grey article-nav-next" href="<?php echo $nextPost['permalink']; ?>">
                 <span class="level-item"><?php echo $nextPost['title']; ?></span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         <?php endif; ?>
         </div>
-    </div>
+    </div></div>
 </div>
 <?php
     endif;
 endif; 
-Icarus_Module::show('Comments', $this->_post);
+if (!in_array($_SERVER['HTTP_CF_IPCOUNTRY'], explode(',', $this->_post->fields->blocked_countries)))Icarus_Module::show('Comments', $this->_post);
     }
 }

@@ -1,5 +1,6 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 class Icarus_Module_Tag
 {
     public static function config($form)
@@ -27,7 +28,7 @@ class Icarus_Module_Tag
 <div class="card widget">
     <div class="card-content">
         <div class="menu">
-        <?php if ($showAll): ?>
+        <?php if ($showAll === true): ?>
             <h1 class="is-size-4 has-mb-6">
                 <?php _IcTp('general.tags'); ?>
             </h1>
@@ -41,7 +42,7 @@ class Icarus_Module_Tag
                 <div class="control">
                     <a class="tags has-addons" href="<?php $tags->permalink(); ?>">
                         <span class="tag"><?php $tags->name(); ?></span>
-                        <span class="tag is-grey"><?php $tags->count(); ?></span>
+                        <span class="tag"><?php $tags->count(); ?></span>
                     </a>
                 </div>
 <?php endwhile; ?>

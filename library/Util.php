@@ -1,5 +1,6 @@
 <?php
-if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
 
 class Icarus_Util
 {
@@ -30,13 +31,13 @@ class Icarus_Util
     public static function parseMultilineData($str, $columnCount)
     {
         $result = array();
-        if (!empty($str)) {
+        if (Icarus_Util::isEmpty($str) === false) {
             $data = explode("\n", $str);
             foreach ($data as $item) {
                 $item = trim($item);
-                if (!empty($item)) {
+                if (Icarus_Util::isEmpty($item) === false) {
                     $itemData = explode(',', $item, $columnCount);
-                    if (count($itemData) == $columnCount) {
+                    if (count($itemData) === $columnCount) {
                         foreach ($itemData as $k => $v) {
                             $itemData[$k] = trim($v);
                         }
@@ -58,7 +59,7 @@ class Icarus_Util
         $rating = Icarus_Util::$options->commentsAvatarRating;
         $hash = md5(strtolower($email));
         $avatar = $host . '/' . $hash . '?s=' . $size . '&r=' . $rating;
-        if (!empty($default)) {
+        if (Icarus_Util::isEmpty($default) === false) {
             $avatar .= '&d=' . urlencode($default);
         }
         return $avatar;
@@ -68,7 +69,7 @@ class Icarus_Util
     {
         $time = FALSE;
         $typechoCfgFile = __TYPECHO_ROOT_DIR__ . '/config.inc.php';
-        if (file_exists($typechoCfgFile))
+        if (file_exists($typechoCfgFile) === true)
         {
             $time = @filemtime($typechoCfgFile);
         }
@@ -77,7 +78,7 @@ class Icarus_Util
 
     public static function getSiteRunDays()
     {
-        if (Icarus_Config::tryGet('general_install_time', $installTime))
+        if (Icarus_Config::tryGet('general_install_time', $installTime) === true)
         {
             $date = DateTime::createFromFormat('Y-m-d', $installTime);
         }
@@ -92,7 +93,7 @@ class Icarus_Util
 
     public static function getSiteInstallYear()
     {
-        if (Icarus_Config::tryGet('general_install_time', $installTime))
+        if (Icarus_Config::tryGet('general_install_time', $installTime) === true)
         {
             $date = DateTime::createFromFormat('Y-m-d', $installTime);
         }
@@ -147,7 +148,7 @@ class Icarus_Util
         //非自闭合html标签列表
         preg_match_all("/<([_0-9a-zA-Z-\:]+)\s*([^>]*)>/is", $string, $startTags);
         preg_match_all("/<\/([_0-9a-zA-Z-\:]+)>/is", $string, $closeTags);
-        if (!empty($startTags[1]) && is_array($startTags[1])) {
+        if (Icarus_Util::isEmpty($startTags[1]) === false && is_array($startTags[1]) === true) {
             krsort($startTags[1]);
             $closeTagsIsArray = is_array($closeTags[1]);
             foreach ($startTags[1] as $key => $tag) {
@@ -156,10 +157,10 @@ class Icarus_Util
                     continue;
                 }
                 // 白名单
-                if (preg_match("/^(area|base|br|col|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/i", $tag)) {
+                if (preg_match("/^(area|base|br|col|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/i", $tag) === 1) {
                     continue;
                 }
-                if (!empty($closeTags[1]) && $closeTagsIsArray) {
+                if (Icarus_Util::isEmpty($closeTags[1]) === false && $closeTagsIsArray === true) {
                     if (false !== ($index = array_search($tag, $closeTags[1]))) {
                         unset($closeTags[1][$index]);
                         continue;
@@ -174,11 +175,11 @@ class Icarus_Util
     public static function isEmpty($value)
     {
         $exist = !is_null($value);
-        if ($exist)
+        if ($exist === true)
         {
-            if (is_array($value))
+            if (is_array($value) === true)
                 $exist = count($value) > 0;
-            else if (is_string($value))
+            else if (is_string($value) === true)
                 $exist = strlen(trim($value)) > 0;
         }
         return !$exist;

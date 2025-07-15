@@ -40,8 +40,8 @@ class Icarus_Module_Profile
         <nav class="level">
             <div class="level-item has-text-centered">
                 <div>
-                    <img class="image is-128x128 has-mb-6 profile-avatar is-rounded" 
-                        src="<?php self::printAvatarUrl(); ?>" 
+                    <img class="avatar image is-128x128 has-mb-6 profile-avatar is-rounded" src="<?php echo Icarus_Assets::getUrlForAssets('/img/default.png'); ?>" 
+                        data-original="<?php self::printAvatarUrl(); ?>" 
                         alt="<?php echo Icarus_Config::get('profile_author'); ?>" />
                     <?php if (Icarus_Config::tryGet('profile_author', $profileAuthor)): ?>
                     <p class="is-size-4 is-block">
@@ -49,7 +49,7 @@ class Icarus_Module_Profile
                     </p>
                     <?php endif; ?>
                     <?php if (Icarus_Config::tryGet('profile_author_title', $profileAuthorTitle)): ?>
-                    <p class="is-size-6 is-block">
+                    <p class="is-size-6 is-block hitokoto">
                         <?php echo $profileAuthorTitle; ?>
                     </p>
                     <?php endif; ?>
@@ -101,12 +101,12 @@ class Icarus_Module_Profile
         </div>
         <?php endif; ?>
         <?php $socialLinks = self::getSocialLinks(); ?>
-        <?php if (!empty($socialLinks)): ?>
+        <?php if (Icarus_Util::isEmpty($socialLinks) === false): ?>
         <div class="level is-mobile">
             <?php foreach ($socialLinks as $socialLinkItem): ?>
             <a class="level-item button is-white is-marginless" target="_blank"
                 title="<?php echo $socialLinkItem[0]; ?>" href="<?php echo $socialLinkItem[2]; ?>">
-                <?php if (empty($socialLinkItem[1])): ?>
+                <?php if (Icarus_Util::isEmpty($socialLinkItem[1]) === true): ?>
                 <?php echo $socialLinkItem[0]; ?>
                 <?php else: ?>
                 <i class="<?php echo $socialLinkItem[1]; ?>"></i>

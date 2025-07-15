@@ -1,6 +1,10 @@
 /* ---------------------------------
  *       Override CSS Framework
  * --------------------------------- */
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
 html {
   font-size: 14px;
 }
@@ -51,6 +55,7 @@ textarea {
   }
 }
 .card {
+  word-break: break-word;
   border-radius: 4px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05), 0 0 1px rgba(0,0,0,0.1);
 }
@@ -67,6 +72,12 @@ textarea {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
+img.post {
+  max-height: 300px;
+  max-width:75%;
+  display:block;
+  margin:0 auto;
+}
 img.thumbnail {
   object-fit: cover;
   width: 100%;
@@ -76,9 +87,11 @@ img.thumbnail {
   color: #333;
   font-size: 24px;
 }
-.navbar-logo img,
+.navbar-logo img {
+  max-height: 2.8rem;
+}
 .footer-logo img {
-  max-height: 2.25rem;
+  max-height: 3.2rem;
 }
 .navbar-main {
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -562,4 +575,54 @@ pre>code:hover>.copy {
   .article-item.article-item-tiny .article-meta{
     font-size: .95rem !important;
   }
+}
+
+#QR {
+    padding-top:20px;
+    }
+#QR a {
+    border:0
+}
+#QR img {
+    width:180px;
+    max-width:100%;
+    display:inline-block;
+    margin:.8em 2em 0 2em
+}
+#rewardButton {
+    border:1px solid #ccc;
+    line-height:36px;
+    text-align:center;
+    height:36px;
+    display:block;
+    border-radius:4px;
+    -webkit-transition-duration:.4s;
+    transition-duration:.4s;
+    background-color:#fff;
+    color:#999;
+    margin:0 auto;
+    padding:0 25px
+}
+#rewardButton:hover {
+    color:#f77b83;
+    border-color:#f77b83;
+    outline-style:none
+}
+.lg-download {
+  display: none;
+}
+#back-to-top {
+    position: fixed;
+    padding: 8px 0;
+    transition: 0.4s ease opacity, 0.4s ease width, 0.4s ease transform, 0.4s ease border-radius;
+    opacity: 0;
+    line-height: 24px;
+    outline: none;
+    transform: translateY(120px);
+}
+#back-to-top.fade-in {
+    opacity: 1;
+}
+#back-to-top.rise-up {
+    transform: translateY(0);
 }
