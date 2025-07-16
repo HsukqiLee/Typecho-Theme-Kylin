@@ -45,10 +45,10 @@ $item = self::$_toc[$k];
 ?>
 <li>
 <?php if (isset($item['id'])): ?>
-    <a class="is-flex" href="#<?php echo $item['id']; ?>">
+    <a class="is-flex" href="#<?php echo htmlspecialchars($item['id'], ENT_QUOTES, 'UTF-8'); ?>">>
         <span>
         <?php 
-            echo str_replace(', ','. ',$item['title']);
+            echo htmlspecialchars(str_replace(', ','. ',$item['title']), ENT_QUOTES, 'UTF-8');
             //Replace subtitle like '3.1,' with '3.1.'
         ?>
         </span>

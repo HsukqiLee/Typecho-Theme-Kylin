@@ -148,8 +148,8 @@ class Icarus_Assets
 
     public static function printCssTag($cssUrl, $preload = FALSE)
     {
-        if ($preload === false) echo '<link rel="stylesheet" href="', $cssUrl, '">', PHP_EOL;
-        else echo '<link rel="preload" href=\''.$cssUrl.'\' as="style" onload="this.onload=null;this.rel=\'stylesheet\'">', PHP_EOL;
+        if ($preload === false) echo '<link rel="stylesheet" href="', htmlspecialchars($cssUrl, ENT_QUOTES, 'UTF-8'), '">', PHP_EOL;
+        else echo '<link rel="preload" href=\'', htmlspecialchars($cssUrl, ENT_QUOTES, 'UTF-8'), '\' as="style" onload="this.onload=null;this.rel=\'stylesheet\'">', PHP_EOL;
     }
 
     public static function printJsTag($jsUrl, $defer = FALSE, $async = FALSE, $instant = TRUE)

@@ -26,17 +26,17 @@ if (defined('__TYPECHO_ROOT_DIR__') === false) exit; ?>
                     if ($installYear != $curYear)
                         echo $installYear, '&nbsp;-&nbsp;';
                     echo $curYear;
-                    ?> <?php echo Icarus_Config::get('profile_author', Icarus_Util::$options->title); ?>.&nbsp;
+                    ?> <?php echo htmlspecialchars(Icarus_Config::get('profile_author', Icarus_Util::$options->title), ENT_QUOTES, 'UTF-8'); ?>.&nbsp;
                     All rights reserved.
                     <br>
                     Powered by <a href="https://typecho.org/" rel="noopener" target="_blank">Typecho</a>.&nbsp;Theme <a href="https://github.com/HsukqiLee/Typecho-Theme-Kylin/" rel="noopener" target="_blank">Icarus & Kylin</a>.
                     </p>
                     <?php if (Icarus_Config::tryGet('footer_beian', $footerBeian)): ?>
                     <img class="lazyload" src="<?php echo Icarus_Assets::getUrlForAssets('img/icp.png'); ?>">
-                    <a href="<?php echo Icarus_Config::get('footer_beian_code'); ?>"><?php echo $footerBeian; ?></a>
+                    <a href="<?php echo htmlspecialchars(Icarus_Config::get('footer_beian_code'), ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($footerBeian, ENT_QUOTES, 'UTF-8'); ?></a>
                     <?php endif; ?>
                     <?php if (Icarus_Config::tryGet('footer_icp', $footerIcp)): ?>
-                    <a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank"><?php echo $footerIcp; ?></a>
+                    <a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank"><?php echo htmlspecialchars($footerIcp, ENT_QUOTES, 'UTF-8'); ?></a>
                     <?php endif; ?>
                     <?php echo Icarus_Config::get('footer_content_left'); ?>
                 </div>
@@ -46,11 +46,11 @@ if (defined('__TYPECHO_ROOT_DIR__') === false) exit; ?>
                     <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
                     <?php foreach ($footerLinks as $linkItem): ?>
                     <p class="control">
-                        <a class="button is-white <?php if (!empty($linkItem[1])) echo 'is-large'; ?>" rel="noopener noreferrer" target="_blank" title="<?php echo $linkItem[0]; ?>" href="<?php echo $linkItem[2]; ?>">
+                        <a class="button is-white <?php if (!empty($linkItem[1])) echo 'is-large'; ?>" rel="noopener noreferrer" target="_blank" title="<?php echo htmlspecialchars($linkItem[0], ENT_QUOTES, 'UTF-8'); ?>" href="<?php echo htmlspecialchars($linkItem[2], ENT_QUOTES, 'UTF-8'); ?>">>
                             <?php if (empty($linkItem[1])):
-                                echo $linkItem[0];
+                                echo htmlspecialchars($linkItem[0], ENT_QUOTES, 'UTF-8');
                             else: foreach ($linkItem[1] as $iconItem): ?>
-                            <i class="<?php echo $iconItem; ?>"></i>
+                            <i class="<?php echo htmlspecialchars($iconItem, ENT_QUOTES, 'UTF-8'); ?>"></i>
                             <?php endforeach; endif; ?>
                         </a>
                     </p>

@@ -18,7 +18,7 @@ $this->need('component/header.php');
     <div class="card-footer">
         <?php if (!empty($jump)): ?>
         <p class="card-footer-item">
-            <span><a href="<?php echo $jumpTarget; ?>" id="icarus-jump-guide"><?php echo $jump; ?></a></span>
+            <span><a href="<?php echo htmlspecialchars($jumpTarget, ENT_QUOTES, 'UTF-8'); ?>" id="icarus-jump-guide"><?php echo htmlspecialchars($jump, ENT_QUOTES, 'UTF-8'); ?></a></span>
         </p>
         <?php endif; ?>
         <p class="card-footer-item">

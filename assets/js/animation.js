@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded',function () {
+(function () {
     function $() {
         return Array.prototype.slice.call(document.querySelectorAll.apply(document, arguments));
     }
@@ -38,4 +38,4 @@ document.addEventListener('DOMContentLoaded',function () {
             });
         });
     });
-});
+})();

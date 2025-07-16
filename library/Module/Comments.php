@@ -88,9 +88,9 @@ class Icarus_Module_Comments
         $noFollow = (NULL === $noFollow) ? Icarus_Util::$options->commentsUrlNofollow : $noFollow;
 
         if ($comment->url && $autoLink) {
-            echo '<a href="' , $comment->url , '"' , ($noFollow ? ' rel="external nofollow noopener"' : ' rel="noopener"') , ' target="_blank">' , $comment->author , '</a>';
+            echo '<a href="' , htmlspecialchars($comment->url, ENT_QUOTES, 'UTF-8') , '"' , ($noFollow ? ' rel="external nofollow noopener"' : ' rel="noopener"') , ' target="_blank">' , htmlspecialchars($comment->author, ENT_QUOTES, 'UTF-8') , '</a>';
         } else {
-            echo $comment->author;
+            echo htmlspecialchars($comment->author, ENT_QUOTES, 'UTF-8');
         }
     }
 
@@ -118,7 +118,7 @@ class Icarus_Module_Comments
                 <div class="tk-submit">
                     <div class="tk-row">
                         <div class="tk-avatar">
-                            <div class="tk-avatar-img"><img title="Comment avatar" src="<?php echo Icarus_Assets::getUrlForAssets('/img/default.png'); ?>"<?php if(!empty($mail)) echo ' class="lazyload" data-original="'.Icarus_Util::getAvatar($mail, 128).'"'; ?>><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"></path></svg></div>
+                            <div class="tk-avatar-img"><img title="Comment avatar" src="<?php echo htmlspecialchars(Icarus_Assets::getUrlForAssets('/img/default.png'), ENT_QUOTES, 'UTF-8'); ?>"<?php if(!empty($mail)) echo ' class="lazyload" data-original="'.htmlspecialchars(Icarus_Util::getAvatar($mail, 128), ENT_QUOTES, 'UTF-8').'"'; ?>><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"></path></svg></div>
                         </div>
                         <div class="tk-col">
                             <div class="tk-meta-input">
@@ -139,8 +139,8 @@ class Icarus_Module_Comments
                         <a title="Markdown is supported" alt="Markdown is supported" href="https://guides.github.com/features/mastering-markdown/" target="_blank" rel="noopener noreferrer" class="tk-action-icon __markdown"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M593.8 59.1H46.2C20.7 59.1 0 79.8 0 105.2v301.5c0 25.5 20.7 46.2 46.2 46.2h547.7c25.5 0 46.2-20.7 46.1-46.1V105.2c0-25.4-20.7-46.1-46.2-46.1zM338.5 360.6H277v-120l-61.5 76.9-61.5-76.9v120H92.3V151.4h61.5l61.5 76.9 61.5-76.9h61.5v209.2zm135.3 3.1L381.5 256H443V151.4h61.5V256H566z"></path></svg></a>
                         </div>
                         <?php if($user->hasLogin()): ?>
-                        <button type="button" onclick="window.location.href='<?php echo $options->logoutUrl(); ?>'" class="el-button tk-preview el-button--default el-button--small"><span><?php _IcTp('general.logout'); ?></span></button>
-                        <button type="button" onclick="window.location.href='<?php echo $options->adminUrl(); ?>'" class="el-button tk-preview el-button--default el-button--small"><span><?php _IcTp('general.usercenter'); ?></span></button>
+                        <button type="button" onclick="window.location.href='<?php echo htmlspecialchars($options->logoutUrl(), ENT_QUOTES, 'UTF-8'); ?>'" class="el-button tk-preview el-button--default el-button--small"><span><?php _IcTp('general.logout'); ?></span></button>
+                        <button type="button" onclick="window.location.href='<?php echo htmlspecialchars($options->adminUrl(), ENT_QUOTES, 'UTF-8'); ?>'" class="el-button tk-preview el-button--default el-button--small"><span><?php _IcTp('general.usercenter'); ?></span></button>
                         <?php elseif ($options->allowRegister): ?>
                         <button type="button" onclick="window.location.href='<?php $options->registerUrl(); ?>'" class="el-button tk-preview el-button--default el-button--small"><span><?php _IcTp('general.register'); ?></span></button>
                         <button type="button" onclick="window.location.href='<?php $options->loginUrl(); ?>'" class="el-button tk-preview el-button--default el-button--small"><span><?php _IcTp('general.login'); ?></span></button>

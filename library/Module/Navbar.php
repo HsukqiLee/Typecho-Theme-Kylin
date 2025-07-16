@@ -54,18 +54,18 @@ class Icarus_Module_Navbar
             <div class="navbar-start">
                 <?php foreach ($menu as $menuItem): ?>
                 <a class="navbar-item<?php if (self::isCurLink($menuItem[1])) { ?> is-active<?php } ?>"
-                href="<?php echo $menuItem[1]; ?>"><?php echo $menuItem[0]; ?></a>
+                href="<?php echo htmlspecialchars($menuItem[1], ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($menuItem[0], ENT_QUOTES, 'UTF-8'); ?></a>
                 <?php endforeach; ?>
             </div>
             <?php endif; ?>
             <div class="navbar-end">
             <?php if (Icarus_Config::has('navbar_icons')): $icons = self::getIcons(); ?>
                 <?php foreach ($icons as $iconItem): ?>
-                <a class="navbar-item" target="_blank" title="<?php echo $iconItem[0]; ?>" href="<?php echo $iconItem[2]; ?>">
+                <a class="navbar-item" target="_blank" title="<?php echo htmlspecialchars($iconItem[0], ENT_QUOTES, 'UTF-8'); ?>" href="<?php echo htmlspecialchars($iconItem[2], ENT_QUOTES, 'UTF-8'); ?>">>
                     <?php if (Icarus_Util::isEmpty($iconItem[1]) === true): ?>
-                    <?php echo $iconItem[0]; ?>
+                    <?php echo htmlspecialchars($iconItem[0], ENT_QUOTES, 'UTF-8'); ?>
                     <?php else: ?>
-                    <i class="<?php echo $iconItem[1]; ?>"></i>
+                    <i class="<?php echo htmlspecialchars($iconItem[1], ENT_QUOTES, 'UTF-8'); ?>"></i>
                     <?php endif; ?>
                 </a>
                 <?php endforeach; ?>

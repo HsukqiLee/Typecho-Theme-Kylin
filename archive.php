@@ -15,9 +15,9 @@ function printArchiveBreadcrumb($text, $url = NULL, $isCurrent = FALSE)
         $url = '#';
     
     echo $isCurrent ? '<li class="is-active"><a href="': '<li><a href="';
-    echo $url;
+    echo htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
     echo $isCurrent ? '" aria-current="page">': '">';
-    echo htmlspecialchars($text);
+    echo htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
     echo '</a></li>', PHP_EOL;
 }
 switch ($this->getArchiveType())
@@ -151,13 +151,13 @@ document.addEventListener('DOMContentLoaded', function () {
 ?>
 <div class="card">
     <div class="card-content">
-        <p class="title has-text-weight-normal"><?php echo $title; ?></p>
-        <p class="subtitle"><?php echo $desc; ?></p>
+        <p class="title has-text-weight-normal"><?php echo htmlspecialchars($title, ENT_QUOTES, 'UTF-8'); ?></p>
+        <p class="subtitle"><?php echo htmlspecialchars($desc, ENT_QUOTES, 'UTF-8'); ?></p>
     </div>
     <div class="card-footer">
         <?php if (!empty($jump)): ?>
         <p class="card-footer-item">
-            <span><a href="<?php echo $jumpTarget; ?>" id="icarus-jump-guide"><?php echo $jump; ?></a></span>
+            <span><a href="<?php echo htmlspecialchars($jumpTarget, ENT_QUOTES, 'UTF-8'); ?>" id="icarus-jump-guide"><?php echo htmlspecialchars($jump, ENT_QUOTES, 'UTF-8'); ?></a></span>
         </p>
         <?php endif; ?>
         <p class="card-footer-item">

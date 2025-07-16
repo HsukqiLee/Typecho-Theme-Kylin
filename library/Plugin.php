@@ -27,8 +27,14 @@ class Icarus_Plugin
         if (in_array($name, self::$_pluginList) === false)
             return FALSE;
         if (in_array($name, self::$_pluginLoaded) === false) {
-            require __ICARUS_ROOT__ . 'library/Plugin/' . $name . '.php';
-            self::$_pluginLoaded[] = $name;
+            // Validate plugin name to prevent path traversal
+            if (preg_match('/^[a-zA-Z0-9_]+$/', $name) === 1) {
+                $pluginPath = __ICARUS_ROOT__ . 'library/Plugin/' . $name . '.php';
+                if (file_exists($pluginPath) === true) {
+                    require_once $pluginPath;
+                    self::$_pluginLoaded[] = $name;
+                }
+            }
         }
         return TRUE;
     }

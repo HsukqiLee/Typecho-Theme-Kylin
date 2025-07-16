@@ -36,13 +36,13 @@ class Icarus_Module_Link
         <ul class="menu-list">
 <?php foreach ($links as $linkItem): $domain = self::getUrlDomain($linkItem[1]); ?>
             <li>
-                <a class="level is-mobile" href="<?php echo $linkItem[1]; ?>" target="_blank">
+                <a class="level is-mobile" href="<?php echo htmlspecialchars($linkItem[1], ENT_QUOTES, 'UTF-8'); ?>" target="_blank">>
                     <span class="level-left">
-                        <span class="level-item"><?php echo $linkItem[0]; ?></span>
+                        <span class="level-item"><?php echo htmlspecialchars($linkItem[0], ENT_QUOTES, 'UTF-8'); ?></span>
                     </span>
                     <?php if (Icarus_Util::isEmpty($domain) === false): ?>
                     <span class="level-right">
-                        <span class="level-item tag"><?php echo $domain; ?></span>
+                        <span class="level-item tag"><?php echo htmlspecialchars($domain, ENT_QUOTES, 'UTF-8'); ?></span>
                     </span>
                     <?php endif; ?>
                 </a>

@@ -45,18 +45,18 @@ class Icarus_Module_Profile
                         alt="<?php echo Icarus_Config::get('profile_author'); ?>" />
                     <?php if (Icarus_Config::tryGet('profile_author', $profileAuthor)): ?>
                     <p class="is-size-4 is-block">
-                        <?php echo $profileAuthor; ?>
+                        <?php echo htmlspecialchars($profileAuthor, ENT_QUOTES, 'UTF-8'); ?>
                     </p>
                     <?php endif; ?>
                     <?php if (Icarus_Config::tryGet('profile_author_title', $profileAuthorTitle)): ?>
                     <p class="is-size-6 is-block hitokoto">
-                        <?php echo $profileAuthorTitle; ?>
+                        <?php echo htmlspecialchars($profileAuthorTitle, ENT_QUOTES, 'UTF-8'); ?>
                     </p>
                     <?php endif; ?>
                     <?php if (Icarus_Config::tryGet('profile_location', $profileLocation)): ?>
                     <p class="is-size-6 is-flex is-flex-center has-text-grey">
                         <i class="fas fa-map-marker-alt has-mr-7"></i>
-                        <span><?php echo $profileLocation; ?></span>
+                        <span><?php echo htmlspecialchars($profileLocation, ENT_QUOTES, 'UTF-8'); ?></span>
                     </p>
                     <?php endif; ?>
                 </div>
@@ -96,7 +96,7 @@ class Icarus_Module_Profile
         </nav>
         <?php if (Icarus_Config::tryGet('profile_follow_link', $profileFollowLink)): ?>
         <div class="level">
-            <a class="level-item button is-link is-rounded" href="<?php echo $profileFollowLink; ?>">
+            <a class="level-item button is-link is-rounded" href="<?php echo htmlspecialchars($profileFollowLink, ENT_QUOTES, 'UTF-8'); ?>">>
                 <?php _IcTp('profile.follow'); ?></a>
         </div>
         <?php endif; ?>
@@ -105,9 +105,9 @@ class Icarus_Module_Profile
         <div class="level is-mobile">
             <?php foreach ($socialLinks as $socialLinkItem): ?>
             <a class="level-item button is-white is-marginless" target="_blank"
-                title="<?php echo $socialLinkItem[0]; ?>" href="<?php echo $socialLinkItem[2]; ?>">
+                title="<?php echo htmlspecialchars($socialLinkItem[0], ENT_QUOTES, 'UTF-8'); ?>" href="<?php echo htmlspecialchars($socialLinkItem[2], ENT_QUOTES, 'UTF-8'); ?>">>
                 <?php if (Icarus_Util::isEmpty($socialLinkItem[1]) === true): ?>
-                <?php echo $socialLinkItem[0]; ?>
+                <?php echo htmlspecialchars($socialLinkItem[0], ENT_QUOTES, 'UTF-8'); ?>
                 <?php else: ?>
                 <i class="<?php echo $socialLinkItem[1]; ?>"></i>
                 <?php endif; ?>

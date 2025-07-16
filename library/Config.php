@@ -1,7 +1,7 @@
 <?php
 
 if (defined('__TYPECHO_ROOT_DIR__') === false) exit;
-require __ICARUS_ROOT__ . 'library/FormHelper.php';
+require_once __ICARUS_ROOT__ . 'library/FormHelper.php';
 
 class Icarus_Config
 {

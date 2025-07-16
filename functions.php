@@ -17,15 +17,15 @@ function themeInit($widget)
     {
         $inited = TRUE;
 
-        require __ICARUS_ROOT__ . 'library/Util.php';
-        require __ICARUS_ROOT__ . 'library/I18n.php';
-        require __ICARUS_ROOT__ . 'library/Module.php';
-        require __ICARUS_ROOT__ . 'library/Aside.php';
-        require __ICARUS_ROOT__ . 'library/Plugin.php';
-        require __ICARUS_ROOT__ . 'library/Page.php';
-        require __ICARUS_ROOT__ . 'library/Assets.php';
-        require __ICARUS_ROOT__ . 'library/Config.php';
-        require __ICARUS_ROOT__ . 'library/Content.php';
+        require_once __ICARUS_ROOT__ . 'library/Util.php';
+        require_once __ICARUS_ROOT__ . 'library/I18n.php';
+        require_once __ICARUS_ROOT__ . 'library/Module.php';
+        require_once __ICARUS_ROOT__ . 'library/Aside.php';
+        require_once __ICARUS_ROOT__ . 'library/Plugin.php';
+        require_once __ICARUS_ROOT__ . 'library/Page.php';
+        require_once __ICARUS_ROOT__ . 'library/Assets.php';
+        require_once __ICARUS_ROOT__ . 'library/Config.php';
+        require_once __ICARUS_ROOT__ . 'library/Content.php';
     
         Icarus_Util::init($widget);
         Icarus_I18n::init();
@@ -46,7 +46,7 @@ function themeConfig($form)
     require __ICARUS_ROOT__ . 'library/Assets.php';
     require __ICARUS_ROOT__ . 'library/Config.php';
     require __ICARUS_ROOT__ . 'library/Content.php';
-    require __ICARUS_ROOT__ . 'library/Ajax.php';
+    require_once __ICARUS_ROOT__ . 'library/Ajax.php';
 
     Icarus_Util::init(NULL);
     Icarus_I18n::init();
@@ -101,5 +101,5 @@ function _IcT($key)
 // Icarus Translation + Print
 function _IcTp($key)
 {
-    echo Icarus_I18n::get($key);
+    echo htmlspecialchars(Icarus_I18n::get($key), ENT_QUOTES, 'UTF-8');
 }

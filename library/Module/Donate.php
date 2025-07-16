@@ -48,17 +48,17 @@ class Icarus_Module_Donate
                     {
                         if($arr['type']=='paypal') {
                 ?>
-                    <a class="button donate" data-type="paypal" onclick="document.getElementById('paypal-donate-form').submit()"><span class="icon is-small"><i class="fab fa-paypal"></i></span><span>Paypal</span></a><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" rel="noopener" id="paypal-donate-form"><input type="hidden" name="cmd" value="_donations"><input type="hidden" name="business" value="<?php echo $arr['business']; ?>"><input type="hidden" name="currency_code" value="<?php echo $arr['currency']; ?>"></form>
+                    <a class="button donate" data-type="paypal" onclick="document.getElementById('paypal-donate-form').submit()"><span class="icon is-small"><i class="fab fa-paypal"></i></span><span>Paypal</span></a><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" rel="noopener" id="paypal-donate-form"><input type="hidden" name="cmd" value="_donations"><input type="hidden" name="business" value="<?php echo htmlspecialchars($arr['business'], ENT_QUOTES, 'UTF-8'); ?>"><input type="hidden" name="currency_code" value="<?php echo htmlspecialchars($arr['currency'], ENT_QUOTES, 'UTF-8'); ?>"></form>
                 <?php
                        }
                        else {
                 ?>
-                <a class="button donate" <?php echo ((isset($arr['url']))?'href="'.$arr['url'].'" target="_blank" rel="noopener"':''); ?> data-type="<?php echo $arr['type']; ?>">
+                <a class="button donate" <?php echo ((isset($arr['url']))?'href="'.htmlspecialchars($arr['url'], ENT_QUOTES, 'UTF-8').'" target="_blank" rel="noopener"':''); ?> data-type="<?php echo htmlspecialchars($arr['type'], ENT_QUOTES, 'UTF-8'); ?>">
                     <span class="icon is-small">
-                        <i class="<?php echo $font_awesome[$arr['type']]; ?>"></i>
+                        <i class="<?php echo htmlspecialchars($font_awesome[$arr['type']], ENT_QUOTES, 'UTF-8'); ?>"></i>
                     </span>
                     <span><?php _IcTp('donate.buttons.'.$arr['type']); ?></span>
-                    <?php echo (isset($arr['image'])?'<span class="qrcode"><img class="lazyload" src="'./*Icarus_Assets::getUrlForAssets('/img/default.png').'" data-original="'.*/$arr['image'].'" title="'. _IcT('donate.buttons.'.$arr['type']). '"></span>':''); ?>
+                    <?php echo (isset($arr['image'])?'<span class="qrcode"><img class="lazyload" src="'./*Icarus_Assets::getUrlForAssets('/img/default.png').'" data-original="'.*/htmlspecialchars($arr['image'], ENT_QUOTES, 'UTF-8').'" title="'. htmlspecialchars(_IcT('donate.buttons.'.$arr['type']), ENT_QUOTES, 'UTF-8'). '"></span>':''); ?>
                 </a>
                 <?php
                         }

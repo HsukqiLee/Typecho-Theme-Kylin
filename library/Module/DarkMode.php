@@ -52,8 +52,8 @@ class Icarus_Module_DarkMode
           lightSrc: null,
           darkSrc: null,
         <?php endif; ?>
-                      highlightLightTheme: "<?php echo Icarus_Assets::getCdnUrl('highlight.js', Icarus_Plugin_Highlight::VERSION, 'styles/' . Icarus_Config::get('highlight_theme', 'atom-one-light') . '.min.css'); ?>",
-        highlightDarkTheme: "<?php echo Icarus_Assets::getCdnUrl('highlight.js', Icarus_Plugin_Highlight::VERSION, 'styles/' . Icarus_Config::get('highlight_theme_dark', 'atom-one-dark') . '.min.css'); ?>",
+                      highlightLightTheme: "<?php echo htmlspecialchars(Icarus_Assets::getCdnUrl('highlight.js', Icarus_Plugin_Highlight::VERSION, 'styles/' . Icarus_Config::get('highlight_theme', 'atom-one-light') . '.min.css'), ENT_QUOTES, 'UTF-8'); ?>",
+        highlightDarkTheme: "<?php echo htmlspecialchars(Icarus_Assets::getCdnUrl('highlight.js', Icarus_Plugin_Highlight::VERSION, 'styles/' . Icarus_Config::get('highlight_theme_dark', 'atom-one-dark') . '.min.css'), ENT_QUOTES, 'UTF-8'); ?>",
       };
     </script>
     <?php

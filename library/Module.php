@@ -26,8 +26,14 @@ class Icarus_Module
         if (in_array($name, self::$_moduleList) === false)
             return FALSE;
         if (in_array($name, self::$_moduleLoaded) === false) {
-            require __ICARUS_ROOT__ . 'library/Module/' . $name . '.php';
-            self::$_moduleLoaded[] = $name;
+            // Validate module name to prevent path traversal
+            if (preg_match('/^[a-zA-Z0-9_]+$/', $name) === 1) {
+                $modulePath = __ICARUS_ROOT__ . 'library/Module/' . $name . '.php';
+                if (file_exists($modulePath) === true) {
+                    require_once $modulePath;
+                    self::$_moduleLoaded[] = $name;
+                }
+            }
         }
         return TRUE;
     }

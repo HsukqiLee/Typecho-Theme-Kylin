@@ -59,8 +59,8 @@ class Icarus_Module_Single
         if ($this->hasThumbnail()) {
 ?>
     <div class="card-image">
-        <?php echo !$isContent ? ('<a href="' . $this->_post->permalink . '"') : '<span '; ?> class="image is-7by1">
-            <img class="thumbnail lazyload" src="<?php echo Icarus_Assets::getUrlForAssets('/img/default.png'); ?>" data-original="<?php echo $this->getThumbnail(); ?>" alt="<?php $this->_post->title(); ?>">
+        <?php echo !$isContent ? ('<a href="' . htmlspecialchars($this->_post->permalink, ENT_QUOTES, 'UTF-8') . '"') : '<span '; ?> class="image is-7by1">
+            <img class="thumbnail lazyload" src="<?php echo Icarus_Assets::getUrlForAssets('/img/default.png'); ?>" data-original="<?php echo htmlspecialchars($this->getThumbnail(), ENT_QUOTES, 'UTF-8'); ?>" alt="<?php $this->_post->title(); ?>">>
         <?php echo !$isContent ? '</a>' : '</span>' ?>
     </div>
 <?php 
@@ -81,8 +81,8 @@ class Icarus_Module_Single
             $result = array();
 
             foreach ($directory as $category) {
-                $result[] = '<a class="has-link-grey" href="' . $category['permalink'] . '">'
-                . $category['name'] . '</a>';
+                $result[] = '<a class="has-link-grey" href="' . htmlspecialchars($category['permalink'], ENT_QUOTES, 'UTF-8') . '">'
+                . htmlspecialchars($category['name'], ENT_QUOTES, 'UTF-8') . '</a>';
             }
 
             echo implode('&nbsp;/&nbsp;', $result);
@@ -104,8 +104,8 @@ class Icarus_Module_Single
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
                     <span><?php $result = array();
                     foreach ($this->_post->tags as $tag) {
-                        $result[] ='<a class="has-link-grey" href="' . $tag['permalink'] . '">'
-                        . $tag['name'] . '</a>';
+                        $result[] ='<a class="has-link-grey" href="' . htmlspecialchars($tag['permalink'], ENT_QUOTES, 'UTF-8') . '">'
+                        . htmlspecialchars($tag['name'], ENT_QUOTES, 'UTF-8') . '</a>';
                     }
                     echo implode('&nbsp;&nbsp;', $result);
                     ?>
@@ -233,10 +233,10 @@ if (isset($_SERVER['HTTP_CF_IPCOUNTRY']) && in_array($_SERVER['HTTP_CF_IPCOUNTRY
     <h2 class="title has-text-weight-bold blocked-text"><?php _IcTp('fields.blocked_countries.text.title'); ?></h2>
     <p class="subtitle blocked-text"><?php _IcTp('fields.blocked_countries.text.subtitle'); ?></p>
     <p class="menu-label">
-        <?php echo _IcT('fields.blocked_countries.text.ip').$_SERVER['HTTP_X_FORWARDED_FOR']; ?><br>
-        <?php echo _IcT('fields.blocked_countries.text.ray').$ray[0]; ?><br>
-        <?php echo _IcT('fields.blocked_countries.text.loc').$_SERVER['HTTP_CF_IPCOUNTRY']; ?><br>
-        <?php echo _IcT('fields.blocked_countries.text.colo').$ray[1]; ?>
+        <?php echo _IcT('fields.blocked_countries.text.ip').htmlspecialchars($_SERVER['HTTP_X_FORWARDED_FOR'], ENT_QUOTES, 'UTF-8'); ?><br>
+        <?php echo _IcT('fields.blocked_countries.text.ray').htmlspecialchars($ray[0], ENT_QUOTES, 'UTF-8'); ?><br>
+        <?php echo _IcT('fields.blocked_countries.text.loc').htmlspecialchars($_SERVER['HTTP_CF_IPCOUNTRY'], ENT_QUOTES, 'UTF-8'); ?><br>
+        <?php echo _IcT('fields.blocked_countries.text.colo').htmlspecialchars($ray[1], ENT_QUOTES, 'UTF-8'); ?>
     </p>
     <div class="buttons">
         <button class="button is-light blocked-button" onclick="window.history.back()"><?php _IcTp('fields.blocked_countries.text.back'); ?></button>
@@ -293,7 +293,7 @@ else {
                         for($i=0;$i<count($translate);$i++)
                         {
                     ?>
-                    <a href="<?php echo $translate[$i]; ?>"><?php echo $language[$i]; ?></a>
+                    <a href="<?php echo htmlspecialchars($translate[$i], ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($language[$i], ENT_QUOTES, 'UTF-8'); ?></a>
                     &nbsp;
                     <?php
                         }
@@ -334,10 +334,10 @@ else {
     <h2 class="title has-text-weight-bold blocked-text"><?php _IcTp('fields.blocked_countries.text.title'); ?></h2>
     <p class="subtitle blocked-text"><?php _IcTp('fields.blocked_countries.text.subtitle'); ?></p>
     <p class="menu-label">
-        <?php echo _IcT('fields.blocked_countries.text.ip').$_SERVER['HTTP_X_FORWARDED_FOR']; ?><br>
-        <?php echo _IcT('fields.blocked_countries.text.ray').$ray[0]; ?><br>
-        <?php echo _IcT('fields.blocked_countries.text.loc').$_SERVER['HTTP_CF_IPCOUNTRY']; ?><br>
-        <?php echo _IcT('fields.blocked_countries.text.colo').$ray[1]; ?>
+        <?php echo _IcT('fields.blocked_countries.text.ip').htmlspecialchars($_SERVER['HTTP_X_FORWARDED_FOR'], ENT_QUOTES, 'UTF-8'); ?><br>
+        <?php echo _IcT('fields.blocked_countries.text.ray').htmlspecialchars($ray[0], ENT_QUOTES, 'UTF-8'); ?><br>
+        <?php echo _IcT('fields.blocked_countries.text.loc').htmlspecialchars($_SERVER['HTTP_CF_IPCOUNTRY'], ENT_QUOTES, 'UTF-8'); ?><br>
+        <?php echo _IcT('fields.blocked_countries.text.colo').htmlspecialchars($ray[1], ENT_QUOTES, 'UTF-8'); ?>
     </p>
     <div class="buttons">
         <button class="button is-light blocked-button" onclick="window.history.back()"><?php _IcTp('fields.blocked_countries.text.back'); ?></button>
@@ -403,16 +403,16 @@ if ($this->_post->is('post')):
     <div class="level post-navigation is-flex-wrap is-mobile">
         <div class="level-start">
         <?php if ($prevPost !== null): ?>
-            <a class="level level-item has-link-grey article-nav-prev" href="<?php echo $prevPost['permalink']; ?>">
+            <a class="level level-item has-link-grey article-nav-prev" href="<?php echo htmlspecialchars($prevPost['permalink'], ENT_QUOTES, 'UTF-8'); ?>">
                 <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item"><?php echo $prevPost['title']; ?></span>
+                <span class="level-item"><?php echo htmlspecialchars($prevPost['title'], ENT_QUOTES, 'UTF-8'); ?></span>
             </a>
         <?php endif;?> 
         </div>
         <div class="level-end">
         <?php if ($nextPost !== null): ?>
-            <a class="level level-item has-link-grey article-nav-next" href="<?php echo $nextPost['permalink']; ?>">
-                <span class="level-item"><?php echo $nextPost['title']; ?></span>
+            <a class="level level-item has-link-grey article-nav-next" href="<?php echo htmlspecialchars($nextPost['permalink'], ENT_QUOTES, 'UTF-8'); ?>">
+                <span class="level-item"><?php echo htmlspecialchars($nextPost['title'], ENT_QUOTES, 'UTF-8'); ?></span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         <?php endif; ?>

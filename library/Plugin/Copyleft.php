@@ -12,7 +12,7 @@ class Icarus_Plugin_Copyleft
     public static function footer()
     {
 ?>
-<div id="copyleft" style="display:none;z-index:999;"><span><?php echo Icarus_Config::get('copyleft_text'); ?></span></div>
+<div id="copyleft" style="display:none;z-index:999;"><span><?php echo htmlspecialchars(Icarus_Config::get('copyleft_text'), ENT_QUOTES, 'UTF-8'); ?></span></div>
 <script>
 	var licenses = document.getElementById('copyleft');
 	document.oncontextmenu = function(ev) {

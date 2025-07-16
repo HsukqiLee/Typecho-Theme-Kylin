@@ -37,9 +37,9 @@ function treeViewCategories($widget, $categoryOptions)
 {
 ?>
 <li>
-    <a class="level is-marginless" href="<?php echo $widget->permalink; ?>">
+    <a class="level is-marginless" href="<?php echo htmlspecialchars($widget->permalink, ENT_QUOTES, 'UTF-8'); ?>">
         <span class="level-start">
-            <span class="level-item"><?php echo $widget->name; ?></span>
+            <span class="level-item"><?php echo htmlspecialchars($widget->name, ENT_QUOTES, 'UTF-8'); ?></span>
         </span>
         <span class="level-end">
             <span class="level-item tag"><?php echo intval($widget->count); ?></span>
